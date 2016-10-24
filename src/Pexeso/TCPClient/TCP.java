@@ -40,7 +40,7 @@ public class TCP {
 
     public void disconnect(){
         try {
-            sendMsg(MsgTables.getType(MsgTypes.C_LOGOUT));
+            sendMsg(MsgTables.getType(MsgTypes.C_LOGOUT) + "#");
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,6 +76,10 @@ public class TCP {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public void getConnectedUsers(){
+
     }
 
     public Socket getSocket() {

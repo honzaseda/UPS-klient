@@ -1,9 +1,12 @@
 package Pexeso.Controller;
 
+import Pexeso.Main;
 import Pexeso.Thread.ClientListener;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,15 +20,17 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import Pexeso.TCPClient.TCP;
+import javafx.stage.WindowEvent;
 
 import java.net.InetAddress;
 import java.net.URL;
 import java.rmi.server.ExportException;
 import java.util.ResourceBundle;
 
+import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
-public class LoginController {
+public class LoginController{
     @FXML
     public GridPane loginPane;
     @FXML
@@ -75,9 +80,23 @@ public class LoginController {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/Game.fxml"));
                     Parent gameRoot = fxmlLoader.load();
                     Stage gameStage = new Stage();
-                    gameStage.setScene(new Scene(gameRoot, 800, 600));
+                    gameStage.setScene(new Scene(gameRoot, 1024, 768));
+                    gameStage.setTitle("Čupr Pexeso - game");
                     gameStage.setResizable(false);
                     gameStage.show();
+                    Main.FXMLLOADER_GAME = fxmlLoader;
+
+
+                    gameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+                        @Override
+                        public void handle(WindowEvent event) {
+                                    //currentThread().interrupt();
+                                    tcp.disconnect();
+                                    System.exit(0);
+
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -99,4 +118,6 @@ public class LoginController {
             }
         });
     }
+
+
 }
