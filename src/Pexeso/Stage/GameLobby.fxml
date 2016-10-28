@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<GridPane fx:id="gameLobbyPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pexeso.Controller.GameLobbyController">
+    <children>
+        <Pane prefHeight="768.0" prefWidth="1024.0">
+            <children>
+                <ToolBar layoutY="740.0" prefHeight="25.0" prefWidth="1024.0">
+                    <items>
+                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <ProgressBar prefHeight="10.0" prefWidth="200.0" progress="0.0" />
+                    </items>
+                </ToolBar>
+                <AnchorPane fx:id="sceneAnchor" prefHeight="735.0" prefWidth="1024.0">
+                    <children>
+                        
+                        <Button onAction="#setReady" layoutX="834.0" layoutY="420.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Jsem ready kámo" />
+                  <Button onAction="#leaveLobby" layoutX="386.0" layoutY="420.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Odejít z místnosti" />
+                    </children>
+                </AnchorPane>
+            </children></Pane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

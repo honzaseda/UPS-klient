@@ -2,6 +2,8 @@ package Pexeso.TCPClient;
 
 import Pexeso.Controller.LoginController;
 import Pexeso.Main;
+import Pexeso.Thread.ClientListener;
+import javafx.fxml.FXML;
 
 import java.net.*;
 import java.io.*;
@@ -23,7 +25,7 @@ public class TCP {
         }
         catch (IOException e) {
             LoginController controller = Main.FXMLLOADER_LOGIN.getController();
-            controller.setStatusText("Připojení k serveru " + IP + ":" + Port + " odepřeno");
+            controller.setStatusText("Připojení k serveru " + IP + ":" + Port + " se nezdařilo");
             return false;
         }
         catch (IllegalArgumentException e){
@@ -51,6 +53,12 @@ public class TCP {
         String connString = MsgTables.getType(MsgTypes.C_LOGIN) + ":" + name + "#";
         sendMsg(connString);
         return 0;
+    }
+
+    @FXML
+    public void getRoomsTable(){
+        String connString = MsgTables.getType(MsgTypes.C_GET_TABLE) + "#";
+        sendMsg(connString);
     }
 
     private void sendMsg(String data) {

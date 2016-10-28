@@ -6,6 +6,5 @@ public enum MsgTypes {
         C_LOGIN,
         C_LOGOUT,
         C_GET_TABLE,
-        C_RESPOND,
         NO_CODE
 }

@@ -7,6 +7,8 @@ public class MsgTables {
                 return "C_LOGIN";
             case C_LOGOUT:
                 return "C_LOGOUT";
+            case C_GET_TABLE:
+                return "C_GET_TABLE";
             default:
                 return "";
         }

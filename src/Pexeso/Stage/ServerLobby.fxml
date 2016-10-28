@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<GridPane fx:id="serverLobbyPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pexeso.Controller.ServerLobbyController">
+    <children>
+        <Pane prefHeight="768.0" prefWidth="1024.0">
+            <children>
+                <ToolBar layoutY="740.0" prefHeight="25.0" prefWidth="1024.0">
+                    <items>
+                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <ProgressBar prefHeight="10.0" prefWidth="200.0" progress="0.0" />
+                    </items>
+                </ToolBar>
+                <AnchorPane fx:id="sceneAnchor" prefHeight="735.0" prefWidth="1024.0">
+               <children>
+                  <TableView fx:id="lobbyTable" layoutX="9.0" layoutY="8.0" prefHeight="405.0" prefWidth="1005.0">
+                      <placeholder>
+                          <Label text="Nebyly nalezeny žádné herní místnosti" />
+                      </placeholder>
+                    <columns>
+                        <TableColumn fx:id="tableRoomId" prefWidth="40.0" resizable="false" text="#" />
+                        <TableColumn fx:id="tableRoomName" prefWidth="451.0" resizable="false" text="Místnost" />
+                        <TableColumn fx:id="tableConnPlayers" minWidth="0.0" prefWidth="148.0" resizable="false" text="Připojených hráčů" />
+                        <TableColumn fx:id="tableMaxPlayers" minWidth="0.0" prefWidth="155.0" resizable="false" text="Kapacita místnosti" />
+                        <TableColumn fx:id="tableRoomStatus" minWidth="0.0" prefWidth="209.0" resizable="false" text="Stav" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="834.0" layoutY="420.0" mnemonicParsing="false" onAction="#setGameLobbyScene" prefHeight="35.0" prefWidth="180.0" text="Vstoupit do místnosti" />
+                  <Button fx:id="test" layoutX="194.0" layoutY="425.0" mnemonicParsing="false" onAction="#testBtn" text="test" />
+                  <Button onAction="#clearTable" layoutX="255.0" layoutY="425.0" mnemonicParsing="false" text="test2" />
+               </children>
+                </AnchorPane>
+            </children></Pane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

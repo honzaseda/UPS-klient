@@ -13,7 +13,12 @@ import Pexeso.TCPClient.TCP;
 public class Main extends Application {
 
     public static FXMLLoader FXMLLOADER_LOGIN;
+    public static FXMLLoader FXMLLOADER_SERVERLOBBY;
+    public static FXMLLoader FXMLLOADER_GAMELOBBY;
     public static FXMLLoader FXMLLOADER_GAME;
+    public static TCP tcpi;
+
+    public static Stage parentWindow;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

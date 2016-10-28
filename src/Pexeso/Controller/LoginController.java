@@ -6,12 +6,10 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -23,11 +21,7 @@ import Pexeso.TCPClient.TCP;
 import javafx.stage.WindowEvent;
 
 import java.net.InetAddress;
-import java.net.URL;
-import java.rmi.server.ExportException;
-import java.util.ResourceBundle;
 
-import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class LoginController{
@@ -48,7 +42,7 @@ public class LoginController{
     @FXML
     public Text statusText;
 
-    private TCP tcp;
+    public TCP tcp;
     private ClientListener clientListener;
 
     public void attemptLogin() {
@@ -69,7 +63,7 @@ public class LoginController{
         }
     }
 
-    public void setGameUi() {
+    public void setLobbyUi() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -77,15 +71,16 @@ public class LoginController{
                     Stage loginStage = (Stage) loginPane.getScene().getWindow();
                     loginStage.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/Game.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/ServerLobby.fxml"));
                     Parent gameRoot = fxmlLoader.load();
                     Stage gameStage = new Stage();
                     gameStage.setScene(new Scene(gameRoot, 1024, 768));
-                    gameStage.setTitle("Čupr Pexeso - game");
+                    gameStage.setTitle("Čupr Pexeso - Server Lobby");
                     gameStage.setResizable(false);
                     gameStage.show();
-                    Main.FXMLLOADER_GAME = fxmlLoader;
-
+                    Main.parentWindow = gameStage;
+                    Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
+                    ServerLobbyController serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
 
                     gameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
