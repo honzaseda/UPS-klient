@@ -35,7 +35,7 @@ public class ClientListener implements Runnable{
         while (ClientListenerRunning) {
             try {
                 String message = tcpInfo.receiveMsg();
-                sleep(100);
+                //sleep(100);
                 if (message != null && !message.equals("")) {
                     processMessage(message);
                 }

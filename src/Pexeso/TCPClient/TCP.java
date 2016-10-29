@@ -61,6 +61,11 @@ public class TCP {
         sendMsg(connString);
     }
 
+    public void joinRoom(int roomId){
+        String connString = MsgTables.getType(MsgTypes.C_JOIN_ROOM) + ":" + roomId + "#";
+        sendMsg(connString);
+    }
+
     private void sendMsg(String data) {
         try {
             if (socket != null) {

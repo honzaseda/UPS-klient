@@ -109,11 +109,8 @@ public class ServerLobbyController implements Initializable{
         setLobbyTable();
     }
 
-    public void clearTable(){
+    public void refreshTable(){
         lobbyTable.getItems().clear();
-    }
-
-    public void testBtn(){
         tcpConn.getRoomsTable();
     }
 
@@ -133,8 +130,6 @@ public class ServerLobbyController implements Initializable{
                 new PropertyValueFactory<Room, String>("maxPlayers"));
         tableRoomStatus.setCellValueFactory(
                 new PropertyValueFactory<Room, String>("roomStatus"));
-
-        //lobbyTable.setItems(data);
     }
 
     public void setGameLobbyScene() throws IOException{
@@ -148,11 +143,15 @@ public class ServerLobbyController implements Initializable{
     }
 
     public void setStatusText(final String text){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                statusText.setText(text);
-            }
-        });
+        statusText.setText(text);
+    }
+
+    public void assign(){
+        try {
+            Room room = lobbyTable.getSelectionModel().getSelectedItem();
+            if(room.connPlayers != room.maxPlayers)
+            tcpConn.joinRoom(Integer.parseInt(room.getRoomId()));
+            else setStatusText("Místnost '" + room.getRoomName() + "' je plná");
+        } catch (NullPointerException e){}
     }
 }

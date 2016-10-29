@@ -20,7 +20,7 @@
             <children>
                 <ToolBar layoutY="740.0" prefHeight="25.0" prefWidth="1024.0">
                     <items>
-                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Status"/>
                         <Pane HBox.hgrow="ALWAYS" />
                         <ProgressBar prefHeight="10.0" prefWidth="200.0" progress="0.0" />
                     </items>
@@ -39,9 +39,9 @@
                         <TableColumn fx:id="tableRoomStatus" minWidth="0.0" prefWidth="209.0" resizable="false" text="Stav" />
                     </columns>
                   </TableView>
-                  <Button layoutX="834.0" layoutY="420.0" mnemonicParsing="false" onAction="#setGameLobbyScene" prefHeight="35.0" prefWidth="180.0" text="Vstoupit do místnosti" />
-                  <Button fx:id="test" layoutX="194.0" layoutY="425.0" mnemonicParsing="false" onAction="#testBtn" text="test" />
-                  <Button onAction="#clearTable" layoutX="255.0" layoutY="425.0" mnemonicParsing="false" text="test2" />
+                  <Button layoutX="646.0" layoutY="421.0" mnemonicParsing="false" onAction="#setGameLobbyScene" prefHeight="35.0" prefWidth="180.0" text="Vstoupit do místnosti" />
+                  <Button fx:id="test" layoutX="834.0" layoutY="421.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="35.0" prefWidth="180.0" text="Obnovit seznam" />
+                  <Button layoutX="409.0" layoutY="425.0" mnemonicParsing="false" onAction="#assign" text="test - assign to room" />
                </children>
                 </AnchorPane>
             </children></Pane>

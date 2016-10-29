@@ -99,10 +99,6 @@ public class LoginController{
         });
     }
 
-    public static LoginController getController() {
-        return LoginController.getController();
-    }
-
     public void setStatusText(final String text) {
         Platform.runLater(new Runnable() {
             @Override

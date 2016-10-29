@@ -9,6 +9,8 @@ public class MsgTables {
                 return "C_LOGOUT";
             case C_GET_TABLE:
                 return "C_GET_TABLE";
+            case C_JOIN_ROOM:
+                return "C_JOIN_ROOM";
             default:
                 return "";
         }
