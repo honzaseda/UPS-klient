@@ -4,6 +4,8 @@ import Pexeso.Controller.GameController;
 import Pexeso.Controller.LoginController;
 import Pexeso.Controller.ServerLobbyController;
 import Pexeso.Main;
+import Pexeso.TCPClient.MsgTables;
+import Pexeso.TCPClient.MsgTypes;
 import Pexeso.TCPClient.TCP;
 
 import java.io.*;
@@ -68,8 +70,14 @@ public class ClientListener implements Runnable{
             case "S_ROOM_INFO":
                 serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
                 serverLobbyController.updateTableRow(splittedMsg[1], splittedMsg[2], splittedMsg[3], splittedMsg[4], splittedMsg[5]);
+                String connString = MsgTables.getType(MsgTypes.C_ROW_UPDATE) + ":" + splittedMsg[1] + "#";
+                tcpInfo.sendMsg(connString);
                 break;
-
+            case "S_USR_JOINED":
+                try {
+                    serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
+                    serverLobbyController.setGameLobbyScene();
+                } catch(IOException e){}
         }
     }
 }

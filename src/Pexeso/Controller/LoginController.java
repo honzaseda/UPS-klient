@@ -73,20 +73,18 @@ public class LoginController{
 
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/ServerLobby.fxml"));
                     Parent gameRoot = fxmlLoader.load();
-                    Stage gameStage = new Stage();
-                    gameStage.setScene(new Scene(gameRoot, 1024, 768));
-                    gameStage.setTitle("Čupr Pexeso - Server Lobby");
-                    gameStage.setResizable(false);
-                    gameStage.show();
-                    Main.parentWindow = gameStage;
+                    Stage lobbyStage = new Stage();
+                    lobbyStage.setScene(new Scene(gameRoot, 1024, 768));
+                    lobbyStage.setTitle("Čupr Pexeso - Server Lobby");
+                    lobbyStage.setResizable(false);
+                    lobbyStage.show();
+                    Main.parentWindow = lobbyStage;
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
-                    ServerLobbyController serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
 
-                    gameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    lobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
                         @Override
                         public void handle(WindowEvent event) {
-                                    //currentThread().interrupt();
                                     tcp.disconnect();
                                     System.exit(0);
 

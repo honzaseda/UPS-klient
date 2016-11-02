@@ -66,7 +66,7 @@ public class TCP {
         sendMsg(connString);
     }
 
-    private void sendMsg(String data) {
+    public void sendMsg(String data) {
         try {
             if (socket != null) {
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -86,7 +86,6 @@ public class TCP {
                 return "chybná zpráva#";
             }
         } catch (IOException e) {
-            e.printStackTrace();
             return "";
         }
     }

@@ -11,6 +11,8 @@ public class MsgTables {
                 return "C_GET_TABLE";
             case C_JOIN_ROOM:
                 return "C_JOIN_ROOM";
+            case C_ROW_UPDATE:
+                return "C_ROW_UPDATE";
             default:
                 return "";
         }

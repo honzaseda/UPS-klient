@@ -6,10 +6,13 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +34,8 @@ public class ServerLobbyController implements Initializable{
 
     @FXML
     public Text statusText;
+    @FXML
+    public Button joinRoom, refreshList;
     @FXML
     public GridPane serverLobbyPane;
     @FXML
@@ -97,16 +103,22 @@ public class ServerLobbyController implements Initializable{
 
     private ObservableList<Room> data =
             FXCollections.observableArrayList();
-    @FXML
-    public void initialize(){
-        this.tcpConn = Main.tcpi;
-        setLobbyTable();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.tcpConn = Main.tcpi;
         setLobbyTable();
+        joinRoom.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                assign();
+            }
+        });
+        refreshList.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                refreshTable();
+            }
+        });
+        //refreshTable();
     }
 
     public void refreshTable(){
@@ -133,13 +145,15 @@ public class ServerLobbyController implements Initializable{
     }
 
     public void setGameLobbyScene() throws IOException{
-        Parent window;
-        window = FXMLLoader.load(getClass().getResource("/Pexeso/Stage/GameLobby.fxml"));
+        try {
+            Parent window;
+            window = FXMLLoader.load(getClass().getResource("/Pexeso/Stage/GameLobby.fxml"));
 
-        Stage activeStage;
-        activeStage = Main.parentWindow;
-        activeStage.getScene().setRoot(window);
-        activeStage.setTitle("Čupr Pexeso - Game Room");
+            Stage activeStage;
+            activeStage = Main.parentWindow;
+            activeStage.getScene().setRoot(window);
+            activeStage.setTitle("Čupr Pexeso - Game Room");
+        } catch(IllegalStateException e){}
     }
 
     public void setStatusText(final String text){

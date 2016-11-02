@@ -41,8 +41,8 @@ public class GameLobbyController implements Initializable {
         activeStage.getScene().setRoot(window);
         activeStage.setTitle("Čupr Pexeso - Server Lobby");
 
-        ServerLobbyController slc = Main.FXMLLOADER_SERVERLOBBY.getController();
-        slc.initialize();
+        //ServerLobbyController slc = Main.FXMLLOADER_SERVERLOBBY.getController();
+        //slc.initialize();
 
     }
 }
