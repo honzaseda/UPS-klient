@@ -1,5 +1,6 @@
 package Pexeso;
 
+import Pexeso.TCPClient.ClientInfo;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -17,17 +18,18 @@ public class Main extends Application {
     public static FXMLLoader FXMLLOADER_GAMELOBBY;
     public static FXMLLoader FXMLLOADER_GAME;
     public static TCP tcpi;
+    public static ClientInfo clientInfo;
 
     public static Stage parentWindow;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage loginStage) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Stage/Login.fxml"));
         Parent root = fxmlLoader.load();
-        primaryStage.setTitle("Čupr Pexeso - Login");
-        primaryStage.setScene(new Scene(root, 350, 440));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        loginStage.setTitle("Čupr Pexeso - Login");
+        loginStage.setScene(new Scene(root, 350, 440));
+        loginStage.setResizable(false);
+        loginStage.show();
         FXMLLOADER_LOGIN = fxmlLoader;
     }
 

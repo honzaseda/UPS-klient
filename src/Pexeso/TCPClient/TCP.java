@@ -18,6 +18,8 @@ public class TCP {
         this.serverPort = Port;
     }
 
+
+
     public boolean connect(InetAddress IP, int Port){
         try {
             socket = new Socket(IP, Port);
@@ -63,6 +65,11 @@ public class TCP {
 
     public void joinRoom(int roomId){
         String connString = MsgTables.getType(MsgTypes.C_JOIN_ROOM) + ":" + roomId + "#";
+        sendMsg(connString);
+    }
+
+    public void leaveRoom(int roomId){
+        String connString = MsgTables.getType(MsgTypes.C_LEAVE_ROOM) + ":" + roomId + "#";
         sendMsg(connString);
     }
 

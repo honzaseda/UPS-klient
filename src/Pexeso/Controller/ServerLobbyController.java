@@ -1,6 +1,7 @@
 package Pexeso.Controller;
 
 import Pexeso.Main;
+import Pexeso.TCPClient.MsgTables;
 import Pexeso.TCPClient.TCP;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,12 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -118,7 +121,6 @@ public class ServerLobbyController implements Initializable{
                 refreshTable();
             }
         });
-        //refreshTable();
     }
 
     public void refreshTable(){
@@ -127,7 +129,7 @@ public class ServerLobbyController implements Initializable{
     }
 
     public void updateTableRow(String rId, String rName, String cPl, String mPl, String rStatus){
-        data.add(new Room(rId, rName, cPl, mPl, rStatus));
+        data.add(new Room(rId, rName, cPl, mPl, MsgTables.resolveRoomStatus(rStatus)));
         lobbyTable.setItems(data);
     }
 
@@ -144,20 +146,56 @@ public class ServerLobbyController implements Initializable{
                 new PropertyValueFactory<Room, String>("roomStatus"));
     }
 
-    public void setGameLobbyScene() throws IOException{
-        try {
-            Parent window;
-            window = FXMLLoader.load(getClass().getResource("/Pexeso/Stage/GameLobby.fxml"));
+    public void setGameLobbyScene(final String roomId, final String numPlaying, final String maxPlaying, final String roomStatus) throws IOException{
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Stage serverLobbyStage = (Stage) serverLobbyPane.getScene().getWindow();
+                    serverLobbyStage.close();
 
-            Stage activeStage;
-            activeStage = Main.parentWindow;
-            activeStage.getScene().setRoot(window);
-            activeStage.setTitle("Čupr Pexeso - Game Room");
-        } catch(IllegalStateException e){}
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/GameLobby.fxml"));
+                    Parent gameLobbyRoot = fxmlLoader.load();
+                    Stage gameLobbyStage = new Stage();
+                    gameLobbyStage.setScene(new Scene(gameLobbyRoot, 1024, 768));
+                    gameLobbyStage.setTitle("Čupr Pexeso - Game Room Lobby");
+                    gameLobbyStage.setResizable(false);
+                    gameLobbyStage.show();
+                    Main.FXMLLOADER_GAMELOBBY = fxmlLoader;
+
+                    GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
+                    g.setRoomInfo(roomId, numPlaying, maxPlaying, roomStatus);
+
+                    gameLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent event) {
+                            Main.tcpi.disconnect();
+                            System.exit(0);
+
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    public void setStatusText(final String text){
-        statusText.setText(text);
+    public void setStatusText(final String text, final boolean err){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(err) {
+                    statusText.setFill(Color.RED);
+                    statusText.setText(text);
+                }
+                else {
+                    statusText.setFill(Color.BLACK);
+                    statusText.setText(text);
+                }
+            }
+        });
+
     }
 
     public void assign(){
@@ -165,7 +203,6 @@ public class ServerLobbyController implements Initializable{
             Room room = lobbyTable.getSelectionModel().getSelectedItem();
             if(room.connPlayers != room.maxPlayers)
             tcpConn.joinRoom(Integer.parseInt(room.getRoomId()));
-            else setStatusText("Místnost '" + room.getRoomName() + "' je plná");
         } catch (NullPointerException e){}
     }
 }

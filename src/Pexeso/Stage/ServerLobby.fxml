@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
@@ -12,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <GridPane fx:id="serverLobbyPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pexeso.Controller.ServerLobbyController">
@@ -20,14 +20,13 @@
             <children>
                 <ToolBar layoutY="740.0" prefHeight="25.0" prefWidth="1024.0">
                     <items>
-                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Status"/>
+                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
                         <Pane HBox.hgrow="ALWAYS" />
-                        <ProgressBar prefHeight="10.0" prefWidth="200.0" progress="0.0" />
                     </items>
                 </ToolBar>
                 <AnchorPane fx:id="sceneAnchor" prefHeight="735.0" prefWidth="1024.0">
                <children>
-                  <TableView fx:id="lobbyTable" layoutX="9.0" layoutY="8.0" prefHeight="405.0" prefWidth="1005.0">
+                  <TableView fx:id="lobbyTable" layoutX="10.0" layoutY="40.0" prefHeight="405.0" prefWidth="1005.0">
                       <placeholder>
                           <Label text="Nebyly nalezeny žádné herní místnosti" />
                       </placeholder>
@@ -39,8 +38,13 @@
                         <TableColumn fx:id="tableRoomStatus" minWidth="0.0" prefWidth="209.0" resizable="false" text="Stav" />
                     </columns>
                   </TableView>
-                  <Button fx:id="joinRoom" layoutX="646.0" layoutY="421.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Vstoupit do místnosti" />
-                  <Button fx:id="refreshList" layoutX="834.0" layoutY="421.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Obnovit seznam" />
+                  <Button fx:id="joinRoom" layoutX="647.0" layoutY="453.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Vstoupit do místnosti" />
+                  <Button fx:id="refreshList" layoutX="835.0" layoutY="453.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Obnovit seznam" />
+                  <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vyhledávání herních místností">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
                </children>
                 </AnchorPane>
             </children></Pane>

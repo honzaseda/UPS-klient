@@ -11,8 +11,23 @@ public class MsgTables {
                 return "C_GET_TABLE";
             case C_JOIN_ROOM:
                 return "C_JOIN_ROOM";
+            case C_LEAVE_ROOM:
+                return "C_LEAVE_ROOM";
             case C_ROW_UPDATE:
                 return "C_ROW_UPDATE";
+            default:
+                return "";
+        }
+    }
+
+    public static String resolveRoomStatus(String roomStatus){
+        switch (roomStatus) {
+            case "ROOM_WAIT":
+                return "Čeká se na hráče";
+            case "ROOM_READY":
+                return "Místnost plná, čeká na spuštění";
+            case "ROOM_PLAYING":
+                return "Hra probíhá";
             default:
                 return "";
         }

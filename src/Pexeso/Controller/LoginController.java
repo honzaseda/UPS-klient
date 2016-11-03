@@ -1,8 +1,11 @@
 package Pexeso.Controller;
 
 import Pexeso.Main;
+import Pexeso.TCPClient.ClientInfo;
 import Pexeso.Thread.ClientListener;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import Pexeso.TCPClient.TCP;
+import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 import java.net.InetAddress;
@@ -72,17 +76,19 @@ public class LoginController{
                     loginStage.close();
 
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/ServerLobby.fxml"));
-                    Parent gameRoot = fxmlLoader.load();
-                    Stage lobbyStage = new Stage();
-                    lobbyStage.setScene(new Scene(gameRoot, 1024, 768));
-                    lobbyStage.setTitle("Čupr Pexeso - Server Lobby");
-                    lobbyStage.setResizable(false);
-                    lobbyStage.show();
-                    Main.parentWindow = lobbyStage;
+                    Parent serverLobbyRoot = fxmlLoader.load();
+                    final Stage serverLobbyStage = new Stage();
+                    serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
+                    serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
+                    serverLobbyStage.setResizable(false);
+                    serverLobbyStage.show();
+                    Main.parentWindow = serverLobbyStage;
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
 
-                    lobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    ServerLobbyController s = Main.FXMLLOADER_SERVERLOBBY.getController();
+                    s.refreshTable();
 
+                    serverLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
                         public void handle(WindowEvent event) {
                                     tcp.disconnect();

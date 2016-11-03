@@ -4,6 +4,7 @@ import Pexeso.Controller.GameController;
 import Pexeso.Controller.LoginController;
 import Pexeso.Controller.ServerLobbyController;
 import Pexeso.Main;
+import Pexeso.TCPClient.ClientInfo;
 import Pexeso.TCPClient.MsgTables;
 import Pexeso.TCPClient.MsgTypes;
 import Pexeso.TCPClient.TCP;
@@ -57,7 +58,7 @@ public class ClientListener implements Runnable{
         switch (splittedMsg[0]) {
             case "S_LOGGED":
                 loginController.setLobbyUi();
-                //gameController.setLobbyStatus("Přihlášen na server jako uživatel " + splittedMsg[1]);
+                Main.clientInfo = new ClientInfo(splittedMsg[1], -1);
                 break;
             case "S_NAME_EXISTS":
                 loginController.setStatusText("Uživatel se jménem " + splittedMsg[1] + " již existuje");
@@ -76,8 +77,13 @@ public class ClientListener implements Runnable{
             case "S_USR_JOINED":
                 try {
                     serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
-                    serverLobbyController.setGameLobbyScene();
+                    serverLobbyController.setGameLobbyScene(splittedMsg[1], splittedMsg[2], splittedMsg[3], splittedMsg[4]);
+                    Main.clientInfo.setActiveRoom(Integer.parseInt(splittedMsg[1]));
                 } catch(IOException e){}
+                break;
+            case "S_JOIN_ERR":
+                serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
+                serverLobbyController.setStatusText("Připojení k místnosti " + splittedMsg[1] + " se nezdařilo", true);
         }
     }
 }
