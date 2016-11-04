@@ -1,6 +1,7 @@
 package Pexeso.Thread;
 
 import Pexeso.Controller.GameController;
+import Pexeso.Controller.GameLobbyController;
 import Pexeso.Controller.LoginController;
 import Pexeso.Controller.ServerLobbyController;
 import Pexeso.Main;
@@ -18,6 +19,7 @@ public class ClientListener implements Runnable{
     //private DataInputStream dataInputStream;
     private LoginController loginController;
     private ServerLobbyController serverLobbyController;
+    private GameLobbyController gameLobbyController;
     private GameController gameController;
     private boolean ClientListenerRunning = true;
 
@@ -84,6 +86,14 @@ public class ClientListener implements Runnable{
             case "S_JOIN_ERR":
                 serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
                 serverLobbyController.setStatusText("Připojení k místnosti " + splittedMsg[1] + " se nezdařilo", true);
+                break;
+            case "S_USR_READY":
+                gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                gameLobbyController.setReadyBtn();
+                break;
+            case "S_USR_NREADY":
+                gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                gameLobbyController.unsetReadyBtn();
         }
     }
 }

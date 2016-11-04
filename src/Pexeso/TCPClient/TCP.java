@@ -73,6 +73,17 @@ public class TCP {
         sendMsg(connString);
     }
 
+    public void userReady(String roomId, boolean ready){
+        if(ready) {
+            String connString = MsgTables.getType(MsgTypes.C_USR_READY) + ":" + roomId + "#";
+            sendMsg(connString);
+        }
+        else {
+            String connString = MsgTables.getType(MsgTypes.C_USR_NREADY) + ":" + roomId + "#";
+            sendMsg(connString);
+        }
+    }
+
     public void sendMsg(String data) {
         try {
             if (socket != null) {

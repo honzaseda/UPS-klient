@@ -164,6 +164,7 @@ public class ServerLobbyController implements Initializable{
                     Main.FXMLLOADER_GAMELOBBY = fxmlLoader;
 
                     GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
+                    GameLobbyController.thisRoomId = roomId;
                     g.setRoomInfo(roomId, numPlaying, maxPlaying, roomStatus);
 
                     gameLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

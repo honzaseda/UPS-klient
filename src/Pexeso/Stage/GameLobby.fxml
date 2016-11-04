@@ -24,11 +24,11 @@
                 </ToolBar>
                 <AnchorPane fx:id="sceneAnchor" prefHeight="735.0" prefWidth="1024.0">
                     <children>
-                        <Button cache="true" layoutX="760.0" layoutY="281.0" mnemonicParsing="false" onAction="#setReady" prefHeight="100.0" prefWidth="250.0" text="Připraven!">
+                        <Button fx:id="readyBtn" cache="true" layoutX="760.0" layoutY="621.0" mnemonicParsing="false" onAction="#setReady" prefHeight="100.0" prefWidth="250.0" text="Připraven!">
                      <font>
                         <Font size="28.0" />
                      </font></Button>
-                        <Button layoutX="806.0" layoutY="392.0" mnemonicParsing="false" onAction="#leaveLobby" prefHeight="63.0" prefWidth="158.0" text="Odejít">
+                        <Button layoutX="589.0" layoutY="658.0" mnemonicParsing="false" onAction="#leaveLobby" prefHeight="63.0" prefWidth="158.0" text="Odejít">
                      <font>
                         <Font size="20.0" />
                      </font></Button>

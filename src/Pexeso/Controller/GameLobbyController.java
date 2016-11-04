@@ -4,12 +4,15 @@ import Pexeso.Main;
 import Pexeso.TCPClient.MsgTables;
 import Pexeso.TCPClient.TCP;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,19 +27,18 @@ import java.util.ResourceBundle;
  */
 public class GameLobbyController implements Initializable {
     public TCP tcpConn;
+    public static String thisRoomId;
 
     @FXML
     private GridPane gameLobbyPane;
     @FXML
     public Text roomNameText, numPlayingText, maxPlayingText, roomStatusText;
+    @FXML
+    public Button readyBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.tcpConn = Main.tcpi;
-    }
-
-    public void setReady(){
-
     }
 
     public void leaveLobby() throws IOException{
@@ -89,5 +91,35 @@ public class GameLobbyController implements Initializable {
                 roomStatusText.setText(MsgTables.resolveRoomStatus(roomStatus));
             }
         });
+    }
+
+    public void setReady(){
+        tcpConn.userReady(thisRoomId, true);
+    }
+
+    public void unsetReady(){
+        tcpConn.userReady(thisRoomId, false);
+    }
+
+    public void setReadyBtn(){
+        readyBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                unsetReady();
+            }
+        });
+        readyBtn.setBlendMode(BlendMode.EXCLUSION);
+    }
+
+    public void unsetReadyBtn(){
+        readyBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                setReady();
+            }
+        });
+        readyBtn.setBlendMode(BlendMode.SRC_OVER);
     }
 }

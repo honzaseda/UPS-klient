@@ -13,6 +13,10 @@ public class MsgTables {
                 return "C_JOIN_ROOM";
             case C_LEAVE_ROOM:
                 return "C_LEAVE_ROOM";
+            case C_USR_READY:
+                return "C_USR_READY";
+            case C_USR_NREADY:
+                return "C_USR_NREADY";
             case C_ROW_UPDATE:
                 return "C_ROW_UPDATE";
             default:
