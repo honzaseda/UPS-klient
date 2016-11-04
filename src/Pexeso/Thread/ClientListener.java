@@ -81,7 +81,9 @@ public class ClientListener implements Runnable{
                     serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
                     serverLobbyController.setGameLobbyScene(splittedMsg[1], splittedMsg[2], splittedMsg[3], splittedMsg[4]);
                     Main.clientInfo.setActiveRoom(Integer.parseInt(splittedMsg[1]));
-                } catch(IOException e){}
+                } catch(IOException e){
+                    //TODO
+                }
                 break;
             case "S_JOIN_ERR":
                 serverLobbyController = Main.FXMLLOADER_SERVERLOBBY.getController();
@@ -94,6 +96,14 @@ public class ClientListener implements Runnable{
             case "S_USR_NREADY":
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
                 gameLobbyController.unsetReadyBtn();
+                break;
+            case "S_ROOM_READY":
+                try {
+                    gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                    gameLobbyController.setGameScene();
+                } catch(IOException e){
+                    //TODO
+                }
         }
     }
 }

@@ -122,4 +122,38 @@ public class GameLobbyController implements Initializable {
         });
         readyBtn.setBlendMode(BlendMode.SRC_OVER);
     }
+
+    public void setGameScene() throws IOException {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Stage gameLobbyStage = (Stage) gameLobbyPane.getScene().getWindow();
+                    gameLobbyStage.close();
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/Game.fxml"));
+                    Parent gameRoot = fxmlLoader.load();
+                    Stage gameStage = new Stage();
+                    gameStage.setScene(new Scene(gameRoot, 1024, 768));
+                    gameStage.setTitle("Čupr Pexeso - Game");
+                    gameStage.setResizable(false);
+                    gameStage.show();
+                    Main.FXMLLOADER_GAME = fxmlLoader;
+
+                    GameController g = Main.FXMLLOADER_GAME.getController();
+                    g.setCardDeck();
+
+                    gameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent event) {
+                            Main.tcpi.disconnect();
+                            System.exit(0);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

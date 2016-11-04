@@ -158,7 +158,7 @@ public class ServerLobbyController implements Initializable{
                     Parent gameLobbyRoot = fxmlLoader.load();
                     Stage gameLobbyStage = new Stage();
                     gameLobbyStage.setScene(new Scene(gameLobbyRoot, 1024, 768));
-                    gameLobbyStage.setTitle("Čupr Pexeso - Game Room Lobby");
+                    gameLobbyStage.setTitle("Čupr Pexeso - Game Room Lobby - Herní místnost " + roomId);
                     gameLobbyStage.setResizable(false);
                     gameLobbyStage.show();
                     Main.FXMLLOADER_GAMELOBBY = fxmlLoader;
