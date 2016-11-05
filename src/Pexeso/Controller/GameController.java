@@ -28,12 +28,16 @@ import java.util.ResourceBundle;
 
 public class GameController implements Initializable{
     @FXML
+    public GridPane gamePane;
+
+    //Game, Deck UI
+    @FXML
     public ImageView i00, i01, i02, i03, i04, i10, i11, i12, i13, i14,  i20, i21, i22, i23, i24,  i30, i31, i32, i33, i34,  i40, i41, i42, i43, i44;
     @FXML
-    public Text gameStatus;
-    @FXML
-    public GridPane gamePane;
+    public Text statusText;
     private static final Image cardBackImg = new Image("/Pexeso/Public/Img/card-back.png");
+
+    //Chatting UI
     @FXML
     private TextArea chatWindow;
     @FXML
@@ -42,6 +46,8 @@ public class GameController implements Initializable{
     private Button sendChatMsg;
 
     public TCP tcpConn;
+    private String thisRoomId;
+    private String newLine = "\n\r";
 
     private int deckRows = 5, deckCols = 5;
     private ImageView[][] deck;
@@ -51,6 +57,14 @@ public class GameController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         this.tcpConn = Main.tcpi;
         chatWindow.setEditable(false);
+    }
+
+    public void setThisRoomId(String id){
+        thisRoomId = id;
+    }
+
+    public void initChatWindow(String oldMsg){
+        chatWindow.setText(oldMsg);;
     }
 
     public void setServerLobbyScene() throws IOException {
@@ -104,5 +118,30 @@ public class GameController implements Initializable{
 
     }
 
+    public void sendNewMsg(){
+        String msg = chatMsg.getText();
+        if(!msg.equals("") && msg.length() < 64) {
+            tcpConn.sendChatMsg(thisRoomId, msg);
+        }
+        chatMsg.clear();
+    }
+
+    public void appendUsrMsg(final String userName, final String msg){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatWindow.appendText(userName + ": " + msg + newLine);
+            }
+        });
+    }
+
+    public void appendSrvrMsg(final String msg){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatWindow.appendText("-- Server -- " + msg + newLine);
+            }
+        });
+    }
 
 }

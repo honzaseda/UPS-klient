@@ -68,6 +68,11 @@ public class TCP {
         sendMsg(connString);
     }
 
+    public void getRoomUsers(String roomId){
+        String connString = MsgTables.getType(MsgTypes.C_ROOM_USERS) + ":" + roomId + "#";
+        sendMsg(connString);
+    }
+
     public void leaveRoom(int roomId){
         String connString = MsgTables.getType(MsgTypes.C_LEAVE_ROOM) + ":" + roomId + "#";
         sendMsg(connString);

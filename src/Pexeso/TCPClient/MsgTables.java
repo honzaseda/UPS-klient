@@ -11,6 +11,8 @@ public class MsgTables {
                 return "C_GET_TABLE";
             case C_JOIN_ROOM:
                 return "C_JOIN_ROOM";
+            case C_ROOM_USERS:
+                return "C_ROOM_USERS";
             case C_LEAVE_ROOM:
                 return "C_LEAVE_ROOM";
             case C_USR_READY:
@@ -19,6 +21,8 @@ public class MsgTables {
                 return "C_USR_NREADY";
             case C_ROW_UPDATE:
                 return "C_ROW_UPDATE";
+            case C_USER_UPDATE:
+                return "C_USER_UPDATE";
             case C_CHAT:
                 return "C_CHAT";
             default:

@@ -87,6 +87,7 @@ public class LoginController{
 
                     ServerLobbyController s = Main.FXMLLOADER_SERVERLOBBY.getController();
                     s.refreshTable();
+                    s.setStatusText("Přihlášen na server", false);
 
                     serverLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
@@ -110,6 +111,15 @@ public class LoginController{
                 statusText.setText(text);
                 statusTextVBox.setAlignment(Pos.CENTER);
                 statusText.setTextAlignment(TextAlignment.CENTER);
+                Thread timedText = new Thread() {
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                            statusText.setText("");
+                        } catch (InterruptedException e){}
+                    }
+                };
+                timedText.start();
             }
         });
     }

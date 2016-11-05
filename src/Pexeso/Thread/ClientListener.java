@@ -91,11 +91,17 @@ public class ClientListener implements Runnable{
                 break;
             case "S_USR_READY":
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
-                gameLobbyController.setReadyBtn();
+                gameLobbyController.updateUserReadyUi(Integer.parseInt(splittedMsg[2]), true);
+                if(splittedMsg[1].equals("1")) {
+                    gameLobbyController.setReadyBtn();
+                }
                 break;
             case "S_USR_NREADY":
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
-                gameLobbyController.unsetReadyBtn();
+                gameLobbyController.updateUserReadyUi(Integer.parseInt(splittedMsg[2]), false);
+                if(splittedMsg[1].equals("1")) {
+                    gameLobbyController.unsetReadyBtn();
+                }
                 break;
             case "S_ROOM_READY":
                 try {
@@ -106,9 +112,33 @@ public class ClientListener implements Runnable{
                 }
                 break;
             case "S_CHAT_USR":
+                if(splittedMsg[3].equals("0")) {
+                    gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                    gameLobbyController.appendUsrMsg(splittedMsg[1], splittedMsg[2]);
+                    break;
+                }
+                else if(splittedMsg[3].equals("1")){
+                    gameController = Main.FXMLLOADER_GAME.getController();
+                    gameController.appendUsrMsg(splittedMsg[1], splittedMsg[2]);
+                    break;
+                }
+            case "S_ROOM_USER_INFO":
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
-                gameLobbyController.appendUsrMsg(splittedMsg[1], splittedMsg[2]);
+                gameLobbyController.addNewUserUi(Integer.parseInt(splittedMsg[1]), splittedMsg[2], "0");
+                String connString2 = MsgTables.getType(MsgTypes.C_USER_UPDATE) + ":" + splittedMsg[1] + "#";
+                tcpInfo.sendMsg(connString2);
                 break;
+            case "S_ROOM_UPDATE":
+                gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                gameLobbyController.updateRoomUi(splittedMsg[1], splittedMsg[2]);
+                if(splittedMsg[3].equals("1")){
+                    gameLobbyController.addNewUserUi(Integer.parseInt(splittedMsg[4]), splittedMsg[5], "0");
+                    gameLobbyController.appendSrvrMsg("Hráč " + splittedMsg[5] + " se připojil.");
+                }
+                if(splittedMsg[3].equals("0")){
+                    gameLobbyController.removeUserUi(Integer.parseInt(splittedMsg[4]));
+                    gameLobbyController.appendSrvrMsg("Hráč " + splittedMsg[5] + " odešel z místnosti.");
+                }
         }
     }
 }

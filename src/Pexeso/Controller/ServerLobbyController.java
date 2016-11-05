@@ -166,6 +166,7 @@ public class ServerLobbyController implements Initializable{
                     GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
                     GameLobbyController.thisRoomId = roomId;
                     g.setRoomInfo(roomId, numPlaying, maxPlaying, roomStatus);
+                    g.setJoinedUsers();
 
                     gameLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
@@ -186,13 +187,32 @@ public class ServerLobbyController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+
                 if(err) {
                     statusText.setFill(Color.RED);
                     statusText.setText(text);
+                    Thread timedText = new Thread() {
+                        public void run() {
+                            try {
+                                Thread.sleep(3000);
+                                statusText.setText("");
+                            } catch (InterruptedException e){}
+                        }
+                    };
+                    timedText.start();
                 }
                 else {
                     statusText.setFill(Color.BLACK);
                     statusText.setText(text);
+                    Thread timedText = new Thread() {
+                        public void run() {
+                            try {
+                                Thread.sleep(3000);
+                                statusText.setText("");
+                            } catch (InterruptedException e){}
+                        }
+                    };
+                    timedText.start();
                 }
             }
         });
