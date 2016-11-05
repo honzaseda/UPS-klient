@@ -19,6 +19,8 @@ public class MsgTables {
                 return "C_USR_NREADY";
             case C_ROW_UPDATE:
                 return "C_ROW_UPDATE";
+            case C_CHAT:
+                return "C_CHAT";
             default:
                 return "";
         }

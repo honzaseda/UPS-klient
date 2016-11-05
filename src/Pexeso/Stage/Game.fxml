@@ -58,9 +58,13 @@
                         <Insets />
                      </opaqueInsets>
                   </Pane>
-                  <TextField fx:id="chatMsg" layoutX="741.0" layoutY="690.0" prefHeight="26.0" prefWidth="207.0" />
-                  <TextArea fx:id="chatWindow" layoutX="741.0" layoutY="502.0" prefHeight="188.0" prefWidth="269.0" />
-                  <Button fx:id="sendChatMsg" layoutX="948.0" layoutY="690.0" mnemonicParsing="false" text="Button" />
+                  <Pane layoutX="741.0" layoutY="510.0">
+                     <children>
+                        <TextField fx:id="chatMsg" layoutY="188.0" prefHeight="26.0" prefWidth="201.0" />
+                        <TextArea fx:id="chatWindow" prefHeight="188.0" prefWidth="269.0" />
+                        <Button fx:id="sendChatMsg" layoutX="201.0" layoutY="188.0" mnemonicParsing="false" text="Odeslat" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
          </children></Pane>

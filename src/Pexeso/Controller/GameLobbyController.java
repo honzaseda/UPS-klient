@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -35,6 +37,12 @@ public class GameLobbyController implements Initializable {
     public Text roomNameText, numPlayingText, maxPlayingText, roomStatusText;
     @FXML
     public Button readyBtn;
+    @FXML
+    private TextArea chatWindow;
+    @FXML
+    private TextField chatMsg;
+    @FXML
+    private Button sendChatMsg;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -140,14 +148,15 @@ public class GameLobbyController implements Initializable {
                     gameStage.show();
                     Main.FXMLLOADER_GAME = fxmlLoader;
 
-                    GameController g = Main.FXMLLOADER_GAME.getController();
+                    final GameController g = Main.FXMLLOADER_GAME.getController();
                     g.setCardDeck();
 
                     gameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
                         public void handle(WindowEvent event) {
-                            Main.tcpi.disconnect();
-                            System.exit(0);
+                            try {
+                                g.setServerLobbyScene();
+                            } catch (IOException e){}
                         }
                     });
                 } catch (Exception e) {
@@ -155,5 +164,28 @@ public class GameLobbyController implements Initializable {
                 }
             }
         });
+    }
+
+    public void sendNewMsg(){
+        String msg = chatMsg.getText();
+        if(!msg.equals("") && msg.length() < 64) {
+            tcpConn.sendChatMsg(thisRoomId, msg);
+        }
+        chatMsg.clear();
+    }
+
+    private String newLine = "\n\r";
+    public void appendUsrMsg(final String userName, final String msg){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                chatWindow.appendText(userName + ": " + msg + newLine);
+            }
+        });
+
+    }
+
+    public void appendSrvrMsg(TextArea textArea, String msg){
+        textArea.appendText("-- Server -- " + msg + newLine);
     }
 }

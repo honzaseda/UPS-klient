@@ -9,5 +9,6 @@ public enum MsgTypes {
         C_USR_READY,
         C_USR_NREADY,
         C_ROW_UPDATE, //potvrzení o přijetí zprávy s info o místosti
+        C_CHAT,
         NO_CODE
 }

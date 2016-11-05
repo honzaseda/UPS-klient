@@ -104,6 +104,11 @@ public class ClientListener implements Runnable{
                 } catch(IOException e){
                     //TODO
                 }
+                break;
+            case "S_CHAT_USR":
+                gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                gameLobbyController.appendUsrMsg(splittedMsg[1], splittedMsg[2]);
+                break;
         }
     }
 }

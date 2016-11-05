@@ -84,6 +84,11 @@ public class TCP {
         }
     }
 
+    public void sendChatMsg(String roomId, String msg){
+        String connString = MsgTables.getType(MsgTypes.C_CHAT) + ":" + roomId + ":" + msg + "#";
+        sendMsg(connString);
+    }
+
     public void sendMsg(String data) {
         try {
             if (socket != null) {
