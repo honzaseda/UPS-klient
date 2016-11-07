@@ -19,6 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -68,6 +70,18 @@ public class GameLobbyController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         chatWindow.setEditable(false);
         this.tcpConn = Main.tcpi;
+
+        chatMsg.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke)
+            {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                {
+                    sendNewMsg();
+                }
+            }
+        });
     }
 
     @FXML
@@ -175,6 +189,30 @@ public class GameLobbyController implements Initializable {
         });
     }
 
+    public String getUserNameUi(final int userIndex){
+        Node readyNode;
+        switch (userIndex) {
+            case 0:
+                readyNode = vboxU0.getChildren().get(1);
+                break;
+            case 1:
+                readyNode = vboxU1.getChildren().get(1);
+                break;
+            case 2:
+                readyNode = vboxU2.getChildren().get(1);
+                break;
+            case 3:
+                readyNode = vboxU3.getChildren().get(1);
+                break;
+            default:
+                readyNode = null;
+        }
+        if (readyNode instanceof Text) {
+            return ((Text) readyNode).getText();
+        }
+        else return null;
+    }
+
     @FXML
     public void updateRoomUi(final String numPlaying, final String roomStatus){
         Platform.runLater(new Runnable() {
@@ -182,8 +220,6 @@ public class GameLobbyController implements Initializable {
             public void run() {
                 numPlayingText.setText(numPlaying);
                 roomStatusText.setText(MsgTables.resolveRoomStatus(roomStatus));
-
-
             }
         });
     }
@@ -295,6 +331,12 @@ public class GameLobbyController implements Initializable {
                     g.setThisRoomId(thisRoomId);
                     g.setCardDeck();
                     g.initChatWindow(oldChatMsg);
+                    for(int i=0; i< (Integer.parseInt(numPlayingText.getText())); i++){
+                        if(i == 0)
+                            g.addNewUserUi(i, getUserNameUi(i), "0", "Na tahu");
+                        else
+                            g.addNewUserUi(i, getUserNameUi(i), "0", "");
+                    }
 
                     gameStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
@@ -314,10 +356,12 @@ public class GameLobbyController implements Initializable {
 
     public void sendNewMsg() {
         String msg = chatMsg.getText();
-        if (!msg.equals("") && msg.length() < 64) {
-            tcpConn.sendChatMsg(thisRoomId, msg);
+        if (!msg.equals("") && msg.length() < 32) {
+            String correctedMsg = msg.replaceAll("#", "?");
+            tcpConn.sendChatMsg(thisRoomId, correctedMsg);
         }
         chatMsg.clear();
+        chatMsg.requestFocus();
     }
 
 

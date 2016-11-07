@@ -77,7 +77,7 @@
                         <Pane layoutX="741.0" layoutY="510.0">
                             <children>
                                 <TextField fx:id="chatMsg" layoutY="188.0" prefHeight="26.0" prefWidth="201.0" />
-                                <TextArea fx:id="chatWindow" prefHeight="188.0" prefWidth="269.0" />
+                                <TextArea fx:id="chatWindow" prefHeight="188.0" prefWidth="269.0" wrapText="true" />
                                 <Button fx:id="sendChatMsg" layoutX="201.0" layoutY="188.0" mnemonicParsing="false" onAction="#sendNewMsg" text="Odeslat" />
                             </children>
                         </Pane>
