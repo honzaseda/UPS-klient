@@ -187,22 +187,12 @@ public class ServerLobbyController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
                 if(err) {
                     statusText.setFill(Color.RED);
-                    statusText.setText(text);
-                    Thread timedText = new Thread() {
-                        public void run() {
-                            try {
-                                Thread.sleep(3000);
-                                statusText.setText("");
-                            } catch (InterruptedException e){}
-                        }
-                    };
-                    timedText.start();
                 }
                 else {
                     statusText.setFill(Color.BLACK);
+                }
                     statusText.setText(text);
                     Thread timedText = new Thread() {
                         public void run() {
@@ -213,7 +203,6 @@ public class ServerLobbyController implements Initializable{
                         }
                     };
                     timedText.start();
-                }
             }
         });
 

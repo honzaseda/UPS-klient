@@ -40,9 +40,13 @@ public class ClientListener implements Runnable{
         while (ClientListenerRunning) {
             try {
                 String message = tcpInfo.receiveMsg();
-                //sleep(100);
                 if (message != null && !message.equals("")) {
                     processMessage(message);
+                }
+                else {
+                    LoginController l = Main.FXMLLOADER_LOGIN.getController();
+                    ClientListenerRunning = false;
+                    l.setDiscLoginUi();
                 }
             }
             catch (Exception ex){
@@ -63,10 +67,10 @@ public class ClientListener implements Runnable{
                 Main.clientInfo = new ClientInfo(splittedMsg[1], -1);
                 break;
             case "S_NAME_EXISTS":
-                loginController.setStatusText("Uživatel se jménem " + splittedMsg[1] + " již existuje");
+                loginController.setStatusText("Uživatel se jménem " + splittedMsg[1] + " již existuje", 3000);
                 break;
             case "S_SERVER_FULL":
-                loginController.setStatusText("Server je plný");
+                loginController.setStatusText("Server je plný", 3000);
                 break;
             case "S_USR_TBL":
                 break;

@@ -104,7 +104,40 @@ public class LoginController{
         });
     }
 
-    public void setStatusText(final String text) {
+    public void setDiscLoginUi() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main.parentWindow.close();
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/Login.fxml"));
+                    Parent loginRoot = fxmlLoader.load();
+                    final Stage loginStage = new Stage();
+                    loginStage.setTitle("Čupr Pexeso - Login");
+                    loginStage.setScene(new Scene(loginRoot, 350, 440));
+                    loginStage.setResizable(false);
+                    loginStage.show();
+                    Main.FXMLLOADER_LOGIN = fxmlLoader;
+                    Main.parentWindow = loginStage;
+
+                    LoginController l = Main.FXMLLOADER_LOGIN.getController();
+                    l.setStatusText("Spojení se serverem bylo přerušeno", 8000);
+
+                    loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent event) {
+                            System.exit(0);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void setStatusText(final String text, final int duration) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -114,7 +147,7 @@ public class LoginController{
                 Thread timedText = new Thread() {
                     public void run() {
                         try {
-                            Thread.sleep(3000);
+                            Thread.sleep(duration);
                             statusText.setText("");
                         } catch (InterruptedException e){}
                     }
