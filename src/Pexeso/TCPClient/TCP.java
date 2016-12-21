@@ -94,6 +94,11 @@ public class TCP {
         sendMsg(connString);
     }
 
+    public void pickedCard(String roomId, int row, int col){
+        String connString = MsgTables.getType(MsgTypes.C_TURN_CARD) + ":" + roomId + ":" + row + ":" + col + "#";
+        sendMsg(connString);
+    }
+
     public void sendMsg(String data) {
         try {
             if (socket != null) {

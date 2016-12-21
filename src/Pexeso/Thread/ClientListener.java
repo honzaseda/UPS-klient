@@ -110,6 +110,7 @@ public class ClientListener implements Runnable{
             case "S_ROOM_READY":
                 try {
                     gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
+                    gameLobbyController.appendSrvrMsg("Všichni hráči připraveni, hra začíná!");
                     gameLobbyController.setGameScene();
                 } catch(IOException e){
                     //TODO

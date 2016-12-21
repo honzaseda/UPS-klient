@@ -12,5 +12,6 @@ public enum MsgTypes {
         C_ROW_UPDATE, //potvrzení o přijetí zprávy s info o místosti
         C_USER_UPDATE,
         C_CHAT,
+        C_TURN_CARD,
         NO_CODE
 }

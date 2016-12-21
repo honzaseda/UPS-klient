@@ -3,6 +3,7 @@ package Pexeso.Controller;
 import Pexeso.Main;
 import Pexeso.TCPClient.TCP;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -38,7 +40,7 @@ public class GameController implements Initializable{
 
     //Game, Deck UI
     @FXML
-    public ImageView i00, i01, i02, i03, i04, i10, i11, i12, i13, i14,  i20, i21, i22, i23, i24,  i30, i31, i32, i33, i34,  i40, i41, i42, i43, i44;
+    public ImageView i00, i01, i02, i03, i04, i10, i11, i12, i13, i14,  i20, i21, i22, i23, i24,  i30, i31, i32, i33, i34;
     @FXML
     public Text statusText;
     private static final Image cardBackImg = new Image("/Pexeso/Public/Img/card-back.png");
@@ -59,7 +61,7 @@ public class GameController implements Initializable{
     private String thisRoomId;
     private String newLine = "\n\r";
 
-    private int deckRows = 5, deckCols = 5;
+    private int deckRows = 4, deckCols = 5;
     private ImageView[][] deck;
 
 
@@ -85,7 +87,7 @@ public class GameController implements Initializable{
     }
 
     public void initChatWindow(String oldMsg){
-        chatWindow.setText(oldMsg);;
+        chatWindow.setText(oldMsg);
     }
 
     @FXML
@@ -165,17 +167,32 @@ public class GameController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                deck = new ImageView[][] {{i00, i01, i02, i03, i04},{i10, i11, i12, i13, i14},{i20, i21, i22, i23, i24},{i30, i31, i32, i33, i34},{i40, i41, i42, i43, i44}};
-                //i11.setImage(cardBackImg);
+                deck = new ImageView[][] {{i00, i01, i02, i03, i04},{i10, i11, i12, i13, i14},{i20, i21, i22, i23, i24},{i30, i31, i32, i33, i34}};
                 for(int i = 0; i < deckRows; i++){
                     for(int j = 0; j < deckCols; j++){
                         deck[i][j].setImage(cardBackImg);
+                        final int row = i;
+                        final int col = j;
+                        deck[i][j].setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                            @Override
+                            public void handle(MouseEvent arg0) {
+                                onCardClicked(row, col);
+                            }
+                        });
                     }
                 }
 
             }
         });
+    }
 
+    public void onCardClicked(int row, int col){
+        tcpConn.pickedCard(thisRoomId, row, col);
+    }
+
+    public void flipCard(int row, int col){
+        System.out.println(row + "," + col + " clicked");
     }
 
     public void sendNewMsg(){

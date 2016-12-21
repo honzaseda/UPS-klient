@@ -63,7 +63,7 @@ public class LoginController{
                 tcp.loginUser(nickField.getText());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            setStatusText("Neplatný server/port", 3000);
         }
     }
 

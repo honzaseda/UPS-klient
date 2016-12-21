@@ -16,8 +16,8 @@
    <children>
       <Pane prefHeight="440.0" prefWidth="350.0">
          <children>
-            <TextField fx:id="ipField" layoutX="66.0" layoutY="297.0" prefHeight="26.0" prefWidth="150.0" />
-            <TextField fx:id="portField" layoutX="215.0" layoutY="297.0" prefHeight="25.0" prefWidth="70.0" />
+            <TextField fx:id="ipField" layoutX="66.0" layoutY="297.0" prefHeight="26.0" prefWidth="150.0" text="0.0.0.0" />
+            <TextField fx:id="portField" layoutX="215.0" layoutY="297.0" prefHeight="25.0" prefWidth="70.0" text="44444" />
             <TextField fx:id="nickField" layoutX="90.0" layoutY="349.0" />
             <Button fx:id="loginBtn" layoutX="131.0" layoutY="382.0" mnemonicParsing="false" onAction="#attemptLogin" text="Přihlásit se" />
             <Text layoutX="66.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server IP" />

@@ -25,6 +25,8 @@ public class MsgTables {
                 return "C_USER_UPDATE";
             case C_CHAT:
                 return "C_CHAT";
+            case C_TURN_CARD:
+                return "C_TURN_CARD";
             default:
                 return "";
         }

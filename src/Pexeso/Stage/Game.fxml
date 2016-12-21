@@ -27,7 +27,7 @@
             </ToolBar>
             <AnchorPane layoutY="1.0" prefHeight="734.0" prefWidth="1024.0">
                <children>
-                  <Pane layoutY="5.0" prefHeight="730.0" prefWidth="730.0">
+                  <Pane layoutY="5.0" prefHeight="580.0" prefWidth="730.0">
                      <children>
                          <ImageView fx:id="i00" fitHeight="140.0" fitWidth="140.0" layoutX="5.0" layoutY="5.0" />
                          <ImageView fx:id="i01" fitHeight="140.0" fitWidth="140.0" layoutX="150.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
@@ -49,11 +49,6 @@
                          <ImageView fx:id="i32" fitHeight="140.0" fitWidth="140.0" layoutX="295.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
                          <ImageView fx:id="i33" fitHeight="140.0" fitWidth="140.0" layoutX="440.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
                          <ImageView fx:id="i34" fitHeight="140.0" fitWidth="140.0" layoutX="585.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
-                         <ImageView fx:id="i40" fitHeight="140.0" fitWidth="140.0" layoutX="5.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true" />
-                         <ImageView fx:id="i41" fitHeight="140.0" fitWidth="140.0" layoutX="150.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true" />
-                         <ImageView fx:id="i42" fitHeight="140.0" fitWidth="140.0" layoutX="295.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true" />
-                         <ImageView fx:id="i43" fitHeight="140.0" fitWidth="140.0" layoutX="440.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true" />
-                         <ImageView fx:id="i44" fitHeight="140.0" fitWidth="140.0" layoutX="585.0" layoutY="585.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                      <opaqueInsets>
                         <Insets />
