@@ -32,7 +32,7 @@ public class MsgTables {
         }
     }
 
-    public static String resolveRoomStatus(String roomStatus){
+    public static String resolveRoomStatus(String roomStatus) {
         switch (roomStatus) {
             case "ROOM_WAIT":
                 return "Čeká se na hráče";

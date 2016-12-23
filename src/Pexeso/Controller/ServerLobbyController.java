@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -32,7 +31,7 @@ import java.util.ResourceBundle;
 /**
  * Created by seda on 28/10/16.
  */
-public class ServerLobbyController implements Initializable{
+public class ServerLobbyController implements Initializable {
     public TCP tcpConn;
 
     @FXML
@@ -60,7 +59,6 @@ public class ServerLobbyController implements Initializable{
             this.maxPlayers = new SimpleStringProperty(mPl);
             this.roomStatus = new SimpleStringProperty(rStatus);
         }
-
 
 
         public String getRoomId() {
@@ -112,28 +110,30 @@ public class ServerLobbyController implements Initializable{
         this.tcpConn = Main.tcpi;
         setLobbyTable();
         joinRoom.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 assign();
             }
         });
         refreshList.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 refreshTable();
             }
         });
     }
 
-    public void refreshTable(){
+    public void refreshTable() {
         lobbyTable.getItems().clear();
         tcpConn.getRoomsTable();
     }
 
-    public void updateTableRow(String rId, String rName, String cPl, String mPl, String rStatus){
+    public void updateTableRow(String rId, String rName, String cPl, String mPl, String rStatus) {
         data.add(new Room(rId, rName, cPl, mPl, MsgTables.resolveRoomStatus(rStatus)));
         lobbyTable.setItems(data);
     }
 
-    public void setLobbyTable(){
+    public void setLobbyTable() {
         tableRoomId.setCellValueFactory(
                 new PropertyValueFactory<Room, String>("roomId"));
         tableRoomName.setCellValueFactory(
@@ -146,7 +146,7 @@ public class ServerLobbyController implements Initializable{
                 new PropertyValueFactory<Room, String>("roomStatus"));
     }
 
-    public void setGameLobbyScene(final String roomId, final String numPlaying, final String maxPlaying, final String roomStatus) throws IOException{
+    public void setGameLobbyScene(final String roomId, final String numPlaying, final String maxPlaying, final String roomStatus) throws IOException {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -183,36 +183,37 @@ public class ServerLobbyController implements Initializable{
         });
     }
 
-    public void setStatusText(final String text, final boolean err){
+    public void setStatusText(final String text, final boolean err) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if(err) {
+                if (err) {
                     statusText.setFill(Color.RED);
-                }
-                else {
+                } else {
                     statusText.setFill(Color.BLACK);
                 }
-                    statusText.setText(text);
-                    Thread timedText = new Thread() {
-                        public void run() {
-                            try {
-                                Thread.sleep(3000);
-                                statusText.setText("");
-                            } catch (InterruptedException e){}
+                statusText.setText(text);
+                Thread timedText = new Thread() {
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                            statusText.setText("");
+                        } catch (InterruptedException e) {
                         }
-                    };
-                    timedText.start();
+                    }
+                };
+                timedText.start();
             }
         });
 
     }
 
-    public void assign(){
+    public void assign() {
         try {
             Room room = lobbyTable.getSelectionModel().getSelectedItem();
-            if(room.connPlayers != room.maxPlayers)
-            tcpConn.joinRoom(Integer.parseInt(room.getRoomId()));
-        } catch (NullPointerException e){}
+            if (room.connPlayers != room.maxPlayers)
+                tcpConn.joinRoom(Integer.parseInt(room.getRoomId()));
+        } catch (NullPointerException e) {
+        }
     }
 }

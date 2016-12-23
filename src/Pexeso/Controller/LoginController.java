@@ -1,11 +1,9 @@
 package Pexeso.Controller;
 
 import Pexeso.Main;
-import Pexeso.TCPClient.ClientInfo;
+import Pexeso.TCPClient.TCP;
 import Pexeso.Thread.ClientListener;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,16 +17,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import Pexeso.TCPClient.TCP;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 import java.net.InetAddress;
 
 import static java.lang.Thread.sleep;
 
-public class LoginController{
+public class LoginController {
     @FXML
     public GridPane loginPane;
     @FXML
@@ -92,8 +87,8 @@ public class LoginController{
                     serverLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
                         public void handle(WindowEvent event) {
-                                    tcp.disconnect();
-                                    System.exit(0);
+                            tcp.disconnect();
+                            System.exit(0);
 
                         }
                     });
@@ -149,7 +144,8 @@ public class LoginController{
                         try {
                             Thread.sleep(duration);
                             statusText.setText("");
-                        } catch (InterruptedException e){}
+                        } catch (InterruptedException e) {
+                        }
                     }
                 };
                 timedText.start();

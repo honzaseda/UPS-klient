@@ -8,32 +8,28 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
@@ -41,13 +37,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameController implements Initializable{
+public class GameController implements Initializable {
     @FXML
     public GridPane gamePane;
 
     //Game, Deck UI
     @FXML
-    public ImageView i00, i01, i02, i03, i04, i10, i11, i12, i13, i14,  i20, i21, i22, i23, i24,  i30, i31, i32, i33, i34;
+    public ImageView i00, i01, i02, i03, i04, i10, i11, i12, i13, i14, i20, i21, i22, i23, i24, i30, i31, i32, i33, i34;
     @FXML
     public Text statusText;
     @FXML
@@ -75,7 +71,7 @@ public class GameController implements Initializable{
     private int deckRows = 4, deckCols = 5;
     private ImageView[][] deck;
 
-    private static final Integer STARTTIME   = 15;
+    private static final Integer STARTTIME = 30;
 
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME * 100);
 
@@ -85,24 +81,21 @@ public class GameController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         this.tcpConn = Main.tcpi;
         chatWindow.setEditable(false);
-        chatMsg.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        chatMsg.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent ke)
-            {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
                     sendNewMsg();
                 }
             }
         });
     }
 
-    public void setThisRoomId(String id){
+    public void setThisRoomId(String id) {
         thisRoomId = id;
     }
 
-    public void initChatWindow(String oldMsg){
+    public void initChatWindow(String oldMsg) {
         chatWindow.setText(oldMsg);
     }
 
@@ -145,23 +138,22 @@ public class GameController implements Initializable{
         });
     }
 
-    public void updateOnTurn(){
+    public void updateOnTurn() {
+        turnIndicator.setText("Jsi na tahu!");
+        //TODO: update right side player info
         timeIndicator.setVisible(true);
         timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
-        //TODO: update in right side panel graphics
-        turnIndicator.setText("Jsi na tahu!");
-        if (timeline != null)
-        {
+        if (timeline != null) {
             timeline.stop();
         }
-        timeSeconds.set((STARTTIME + 1) * 100);
+        timeSeconds.set((STARTTIME) * 100);
         timeline = new Timeline();
         timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(STARTTIME + 1), new KeyValue(timeSeconds, 0)));
+                new KeyFrame(Duration.seconds(STARTTIME), new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
     }
 
-    public void updateTurnWait(){
+    public void updateTurnWait() {
         turnIndicator.setText("Čekej na tah protihráče");
         timeIndicator.setVisible(false);
     }
@@ -200,13 +192,13 @@ public class GameController implements Initializable{
         });
     }
 
-    public void setCardDeck(){
+    public void setCardDeck() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                deck = new ImageView[][] {{i00, i01, i02, i03, i04},{i10, i11, i12, i13, i14},{i20, i21, i22, i23, i24},{i30, i31, i32, i33, i34}};
-                for(int i = 0; i < deckRows; i++){
-                    for(int j = 0; j < deckCols; j++){
+                deck = new ImageView[][]{{i00, i01, i02, i03, i04}, {i10, i11, i12, i13, i14}, {i20, i21, i22, i23, i24}, {i30, i31, i32, i33, i34}};
+                for (int i = 0; i < deckRows; i++) {
+                    for (int j = 0; j < deckCols; j++) {
                         deck[i][j].setImage(cardBackImg);
                         final int row = i;
                         final int col = j;
@@ -224,35 +216,98 @@ public class GameController implements Initializable{
         });
     }
 
-    public void onCardClicked(int row, int col){
+    public void onCardClicked(int row, int col) {
         tcpConn.pickedCard(thisRoomId, row, col);
     }
 
-    public void flipCard(int row, int col, int imgId){
+    public void flipCard(int row, int col, int imgId) {
         Image flippedCard = new Image("/Pexeso/Public/Img/cards/" + imgId + ".png");
         deck[row][col].setImage(flippedCard);
     }
 
-    public void sendNewMsg(){
+    public void flipBack(int firstRow, int firstCol, int secRow, int secCol) {
+        deck[firstRow][firstCol].setImage(cardBackImg);
+        deck[secRow][secCol].setImage(cardBackImg);
+    }
+
+    public void playerScored(int id, int score, int firstRow, int firstCol, int secRow, int secCol) {
+        updateScore(id, score);
+        removeCard(firstRow, firstCol);
+        removeCard(secRow, secCol);
+    }
+
+    public void updateScore(int id, int score) {
+        Node readyNode;
+        switch (id) {
+            case 0:
+                readyNode = vboxU0.getChildren().get(1);
+                break;
+            case 1:
+                readyNode = vboxU1.getChildren().get(1);
+                break;
+            case 2:
+                readyNode = vboxU2.getChildren().get(1);
+                break;
+            case 3:
+                readyNode = vboxU3.getChildren().get(1);
+                break;
+            default:
+                readyNode = null;
+        }
+        if (readyNode instanceof Text) {
+            ((Text) readyNode).setText("Skóre: " + score);
+        }
+    }
+
+    public void removeCard(int row, int col) {
+        deck[row][col].setDisable(true);
+        deck[row][col].setVisible(false);
+    }
+
+    public void gameEnd() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                appendSrvrMsg("Konec hry!");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Konec hry");
+                alert.initStyle(StageStyle.UTILITY);
+                alert.setHeaderText(null);
+                alert.setContentText("I have a great message for you!");
+                ButtonType buttonConf = new ButtonType("Zpět do lobby");
+
+                alert.getButtonTypes().setAll(buttonConf);
+
+                alert.showAndWait();
+                if (alert.getResult() == buttonConf) {
+                    quitRoom();
+                } else {
+                    quitRoom();
+                }
+            }
+        });
+    }
+
+    public void sendNewMsg() {
         String msg = chatMsg.getText();
-        if(!msg.equals("") && msg.length() < 32) {
+        if (!msg.equals("") && msg.length() < 32) {
             String correctedMsg = msg.replaceAll("#", "?");
             tcpConn.sendChatMsg(thisRoomId, correctedMsg);
         }
         chatMsg.clear();
     }
 
-    public void quitRoom(){
+    public void quitRoom() {
         try {
             GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
             g.leaveLobby();
             setServerLobbyScene();
-        } catch (IOException e){
+        } catch (IOException e) {
 
         }
     }
 
-    public void appendUsrMsg(final String userName, final String msg){
+    public void appendUsrMsg(final String userName, final String msg) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -261,7 +316,7 @@ public class GameController implements Initializable{
         });
     }
 
-    public void appendSrvrMsg(final String msg){
+    public void appendSrvrMsg(final String msg) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -270,4 +325,28 @@ public class GameController implements Initializable{
         });
     }
 
+    public void setStatusText(final String text, final boolean err) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (err) {
+                    statusText.setFill(Color.RED);
+                } else {
+                    statusText.setFill(Color.BLACK);
+                }
+                statusText.setText(text);
+                Thread timedText = new Thread() {
+                    public void run() {
+                        try {
+                            Thread.sleep(5000);
+                            statusText.setText("");
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                };
+                timedText.start();
+            }
+        });
+
+    }
 }
