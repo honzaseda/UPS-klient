@@ -2,7 +2,12 @@ package Pexeso.Controller;
 
 import Pexeso.Main;
 import Pexeso.TCPClient.TCP;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,6 +35,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,6 +50,10 @@ public class GameController implements Initializable{
     public ImageView i00, i01, i02, i03, i04, i10, i11, i12, i13, i14,  i20, i21, i22, i23, i24,  i30, i31, i32, i33, i34;
     @FXML
     public Text statusText;
+    @FXML
+    public Text turnIndicator;
+    @FXML
+    public ProgressBar timeIndicator;
     private static final Image cardBackImg = new Image("/Pexeso/Public/Img/card-back.png");
 
     //Chatting UI
@@ -64,6 +75,11 @@ public class GameController implements Initializable{
     private int deckRows = 4, deckCols = 5;
     private ImageView[][] deck;
 
+    private static final Integer STARTTIME   = 15;
+
+    private IntegerProperty timeSeconds = new SimpleIntegerProperty(STARTTIME * 100);
+
+    private Timeline timeline;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -102,7 +118,7 @@ public class GameController implements Initializable{
                 userScore.setText("Skóre: " + score);
                 Text onTurn = new Text();
                 onTurn.setText(isOnTurn);
-                onTurn.setFill(Color.rgb(42, 81, 225, .99));
+                onTurn.setFill(Color.rgb(33, 150, 243, .99));
                 onTurn.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
 
                 VBox vbox = new VBox();
@@ -127,6 +143,27 @@ public class GameController implements Initializable{
                 vbox.setSpacing(5);
             }
         });
+    }
+
+    public void updateOnTurn(){
+        timeIndicator.setVisible(true);
+        timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
+        //TODO: update in right side panel graphics
+        turnIndicator.setText("Jsi na tahu!");
+        if (timeline != null)
+        {
+            timeline.stop();
+        }
+        timeSeconds.set((STARTTIME + 1) * 100);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(STARTTIME + 1), new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+    }
+
+    public void updateTurnWait(){
+        turnIndicator.setText("Čekej na tah protihráče");
+        timeIndicator.setVisible(false);
     }
 
     public void setServerLobbyScene() throws IOException {
@@ -191,8 +228,9 @@ public class GameController implements Initializable{
         tcpConn.pickedCard(thisRoomId, row, col);
     }
 
-    public void flipCard(int row, int col){
-        System.out.println(row + "," + col + " clicked");
+    public void flipCard(int row, int col, int imgId){
+        Image flippedCard = new Image("/Pexeso/Public/Img/cards/" + imgId + ".png");
+        deck[row][col].setImage(flippedCard);
     }
 
     public void sendNewMsg(){
@@ -202,6 +240,16 @@ public class GameController implements Initializable{
             tcpConn.sendChatMsg(thisRoomId, correctedMsg);
         }
         chatMsg.clear();
+    }
+
+    public void quitRoom(){
+        try {
+            GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
+            g.leaveLobby();
+            setServerLobbyScene();
+        } catch (IOException e){
+
+        }
     }
 
     public void appendUsrMsg(final String userName, final String msg){

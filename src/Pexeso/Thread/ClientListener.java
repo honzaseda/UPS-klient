@@ -144,6 +144,19 @@ public class ClientListener implements Runnable{
                     gameLobbyController.removeUserUi(Integer.parseInt(splittedMsg[4]));
                     gameLobbyController.appendSrvrMsg("Hráč " + splittedMsg[5] + " odešel z místnosti.");
                 }
+                break;
+            case "S_TURNED":
+                gameController = Main.FXMLLOADER_GAME.getController();
+                gameController.flipCard(Integer.parseInt(splittedMsg[1]), Integer.parseInt(splittedMsg[2]), Integer.parseInt(splittedMsg[3]));
+                break;
+            case "S_ON_TURN":
+                gameController = Main.FXMLLOADER_GAME.getController();
+                gameController.updateOnTurn();
+                break;
+            case "S_TIME":
+                gameController = Main.FXMLLOADER_GAME.getController();
+                gameController.updateTurnWait();
+                break;
         }
     }
 }

@@ -71,13 +71,10 @@ public class GameLobbyController implements Initializable {
         chatWindow.setEditable(false);
         this.tcpConn = Main.tcpi;
 
-        chatMsg.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        chatMsg.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent ke)
-            {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
                     sendNewMsg();
                 }
             }
@@ -99,7 +96,7 @@ public class GameLobbyController implements Initializable {
                 userScore.setText("Skóre: " + score);
                 Text userReady = new Text();
                 userReady.setText("");
-                userReady.setFill(Color.rgb(42, 81, 225, .99));
+                userReady.setFill(Color.rgb(33, 150, 243, .99));
                 userReady.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
 
                 VBox vbox = new VBox();
@@ -128,7 +125,7 @@ public class GameLobbyController implements Initializable {
     }
 
     @FXML
-    public void removeUserUi(final int userIndex){
+    public void removeUserUi(final int userIndex) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -150,7 +147,7 @@ public class GameLobbyController implements Initializable {
                         vbox = null;
                         break;
                 }
-                if(vbox != null) vbox.getChildren().clear();
+                if (vbox != null) vbox.getChildren().clear();
             }
         });
     }
@@ -189,7 +186,7 @@ public class GameLobbyController implements Initializable {
         });
     }
 
-    public String getUserNameUi(final int userIndex){
+    public String getUserNameUi(final int userIndex) {
         Node readyNode;
         switch (userIndex) {
             case 0:
@@ -209,12 +206,11 @@ public class GameLobbyController implements Initializable {
         }
         if (readyNode instanceof Text) {
             return ((Text) readyNode).getText();
-        }
-        else return null;
+        } else return null;
     }
 
     @FXML
-    public void updateRoomUi(final String numPlaying, final String roomStatus){
+    public void updateRoomUi(final String numPlaying, final String roomStatus) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -331,8 +327,8 @@ public class GameLobbyController implements Initializable {
                     g.setThisRoomId(thisRoomId);
                     g.setCardDeck();
                     g.initChatWindow(oldChatMsg);
-                    for(int i=0; i< (Integer.parseInt(numPlayingText.getText())); i++){
-                        if(i == 0)
+                    for (int i = 0; i < (Integer.parseInt(numPlayingText.getText())); i++) {
+                        if (i == 0)
                             g.addNewUserUi(i, getUserNameUi(i), "0", "Na tahu");
                         else
                             g.addNewUserUi(i, getUserNameUi(i), "0", "");
@@ -342,7 +338,7 @@ public class GameLobbyController implements Initializable {
                         @Override
                         public void handle(WindowEvent event) {
                             try {
-                                g.setServerLobbyScene();
+                                leaveLobby();
                             } catch (IOException e) {
                             }
                         }
