@@ -39,8 +39,8 @@
                                 <TableColumn fx:id="tableRoomStatus" minWidth="0.0" prefWidth="207.0" resizable="false" text="Stav" />
                             </columns>
                         </TableView>
-                        <Button fx:id="joinRoom" layoutX="656.0" layoutY="568.0" mnemonicParsing="false" styleClass="btn-medium" text="VSTOUPIT DO MÍSTNOSTI" />
-                        <Button fx:id="refreshList" layoutX="897.0" layoutY="568.0" mnemonicParsing="false" styleClass="btn-medium" text="OBNOVIT" />
+                        <Button fx:id="joinRoom" layoutX="656.0" layoutY="568.0" mnemonicParsing="false" styleClass="button-raised, btn-medium" text="VSTOUPIT DO MÍSTNOSTI" />
+                        <Button fx:id="refreshList" layoutX="897.0" layoutY="568.0" mnemonicParsing="false" styleClass="button-raised, btn-medium" text="OBNOVIT" />
                         <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vyhledávání herních místností">
                             <font>
                                 <Font size="18.0" />

@@ -28,12 +28,12 @@
                 </ToolBar>
                 <AnchorPane fx:id="sceneAnchor" prefHeight="735.0" prefWidth="1024.0">
                     <children>
-                        <Button styleClass="btn-big" fx:id="readyBtn" cache="true" layoutX="17.0" layoutY="621.0" mnemonicParsing="false" onAction="#setReady" prefHeight="100.0" prefWidth="250.0" text="PŘIPRAVEN!">
+                        <Button styleClass="button-raised, btn-big" fx:id="readyBtn" cache="true" layoutX="17.0" layoutY="621.0" mnemonicParsing="false" onAction="#setReady" prefHeight="100.0" prefWidth="250.0" text="PŘIPRAVEN!">
                             <font>
                                 <Font size="28.0" />
                             </font>
                         </Button>
-                        <Button layoutX="278.0" layoutY="671.0" mnemonicParsing="false" onAction="#leaveLobby" styleClass="btn-medium" text="OPUSTIT MÍSTNOST">
+                        <Button layoutX="278.0" layoutY="671.0" mnemonicParsing="false" onAction="#leaveLobby" styleClass="button-raised, btn-medium" text="OPUSTIT MÍSTNOST">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -82,7 +82,7 @@
                             <children>
                                 <TextField fx:id="chatMsg" layoutY="183.0" prefHeight="32.0" prefWidth="185.0" promptText="Napiš zprávu" />
                                 <TextArea fx:id="chatWindow" prefHeight="183.0" prefWidth="269.0" wrapText="true" />
-                                <Button fx:id="sendChatMsg" layoutX="192.0" layoutY="183.0" mnemonicParsing="false" onAction="#sendNewMsg" text="ODESLAT" />
+                                <Button styleClass="button-flat" fx:id="sendChatMsg" layoutX="192.0" layoutY="183.0" mnemonicParsing="false" onAction="#sendNewMsg" text="ODESLAT" />
                             </children>
                         </Pane>
                         <VBox layoutX="10.0" layoutY="106.0" prefHeight="400.0" prefWidth="1000.0">

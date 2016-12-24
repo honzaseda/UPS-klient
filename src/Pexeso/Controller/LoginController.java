@@ -45,6 +45,7 @@ public class LoginController {
     public TCP tcp;
     private ClientListener clientListener;
 
+
     public void attemptLogin() {
         statusText.setText("");
         try {
