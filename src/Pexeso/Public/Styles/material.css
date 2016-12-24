@@ -1,0 +1,115 @@
+.root{
+    -fx-background-color: #FAFAFA;
+}
+
+.button{
+    -fx-background-color: #2196F3;
+    -fx-background-radius: 2;
+    -fx-padding: 8;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+}
+
+.button:pressed{
+    -fx-background-color: #1976D2;
+}
+
+.btn-small{
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 12px;
+}
+
+.btn-medium{
+    -fx-padding: 16 24 16 24;
+    -fx-font-size: 14px;
+}
+
+.btn-big:pressed{
+    -fx-background-color: #424242;
+}
+
+.text-field {
+    -fx-background-color: #BDBDBD,  #FAFAFA,  #FAFAFA;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -10 0 -10;
+}
+
+.text-field:focused{
+    -fx-background-color: #1976D2,  #FAFAFA,  #FAFAFA;
+    -fx-background-insets: 0 -2 -2 -2, 0 0 0 0, 0 -10 0 -10;
+}
+
+.text-field-label {
+    -fx-text-fill: #BDBDBD;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view:focused{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: #E0E0E0;
+}
+
+.table-view .column-header-background .label{
+
+    -fx-background-color: transparent;
+    -fx-text-fill: #757575;
+    -fx-padding: 16 16 16 16;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-alignment: center;
+    -fx-text-fill: #212121;
+}
+
+.table-row-cell{
+    -fx-background-color: #FAFAFA;
+    -fx-min-height: 46px;
+    -fx-max-height: 46px;
+    -fx-padding: 0; /* 0 */
+
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #BDBDBD;
+    -fx-background-radius: 1;
+    -fx-table-cell-border-color: transparent;
+}
+
+.lobby-header {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.lobby-header-text {
+    -fx-text-fill: white;
+}
+
+.button .btn-send-msg{
+    -fx-background-color: transparent !important;;
+    -fx-padding: 8 !important;;
+    -fx-text-fill: #2196F3 !important;;
+}
+
+.button .btn-send-msg:pressed{
+    -fx-background-color: #BDBDBD !important;;
+}
+
+.tool-bar{
+    -fx-background-color: #EEEEEE;
+}

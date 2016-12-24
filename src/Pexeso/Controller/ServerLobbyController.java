@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -105,6 +107,8 @@ public class ServerLobbyController implements Initializable {
     private ObservableList<Room> data =
             FXCollections.observableArrayList();
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.tcpConn = Main.tcpi;
@@ -119,6 +123,14 @@ public class ServerLobbyController implements Initializable {
             @Override
             public void handle(ActionEvent e) {
                 refreshTable();
+            }
+        });
+        lobbyTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    assign();
+                }
             }
         });
     }
@@ -159,6 +171,7 @@ public class ServerLobbyController implements Initializable {
                     Stage gameLobbyStage = new Stage();
                     gameLobbyStage.setScene(new Scene(gameLobbyRoot, 1024, 768));
                     gameLobbyStage.setTitle("Čupr Pexeso - Game Room Lobby - Herní místnost " + roomId);
+                    gameLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
                     gameLobbyStage.setResizable(false);
                     gameLobbyStage.show();
                     Main.FXMLLOADER_GAMELOBBY = fxmlLoader;

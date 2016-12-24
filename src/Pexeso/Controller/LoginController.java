@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -75,6 +76,7 @@ public class LoginController {
                     final Stage serverLobbyStage = new Stage();
                     serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
                     serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
+                    serverLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.parentWindow = serverLobbyStage;
@@ -111,6 +113,7 @@ public class LoginController {
                     final Stage loginStage = new Stage();
                     loginStage.setTitle("Čupr Pexeso - Login");
                     loginStage.setScene(new Scene(loginRoot, 350, 440));
+                    loginStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
                     loginStage.setResizable(false);
                     loginStage.show();
                     Main.FXMLLOADER_LOGIN = fxmlLoader;

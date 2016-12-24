@@ -1,96 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<GridPane fx:id="gameLobbyPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112-ea"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pexeso.Controller.GameLobbyController">
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane fx:id="gameLobbyPane" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pexeso.Controller.GameLobbyController">
     <children>
         <Pane prefHeight="768.0" prefWidth="1024.0">
             <children>
                 <ToolBar layoutY="740.0" prefHeight="25.0" prefWidth="1024.0">
                     <items>
-                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0"/>
-                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Pane HBox.hgrow="ALWAYS" />
                     </items>
                 </ToolBar>
                 <AnchorPane fx:id="sceneAnchor" prefHeight="735.0" prefWidth="1024.0">
                     <children>
-                        <Button fx:id="readyBtn" cache="true" layoutX="17.0" layoutY="621.0" mnemonicParsing="false"
-                                onAction="#setReady" prefHeight="100.0" prefWidth="250.0" text="Připraven!">
+                        <Button styleClass="btn-big" fx:id="readyBtn" cache="true" layoutX="17.0" layoutY="621.0" mnemonicParsing="false" onAction="#setReady" prefHeight="100.0" prefWidth="250.0" text="PŘIPRAVEN!">
                             <font>
-                                <Font size="28.0"/>
+                                <Font size="28.0" />
                             </font>
                         </Button>
-                        <Button layoutX="278.0" layoutY="671.0" mnemonicParsing="false" onAction="#leaveLobby"
-                                prefHeight="50.0" prefWidth="250.0" text="Opustit místnost">
+                        <Button layoutX="278.0" layoutY="671.0" mnemonicParsing="false" onAction="#leaveLobby" styleClass="btn-medium" text="OPUSTIT MÍSTNOST">
                             <font>
-                                <Font size="20.0"/>
+                                <Font size="20.0" />
                             </font>
                         </Button>
-                        <Text fx:id="roomNameText" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Herní místnost">
+                  <Pane layoutX="0.0" layoutY="0.0" prefHeight="64.0" prefWidth="1024.0" styleClass="lobby-header">
+                     <children>
+                              <Text fx:id="roomNameText" fill="WHITE" layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="lobby-header-text" text="Herní místnost">
+                                  <font>
+                                      <Font size="32.0" />
+                                  </font>
+                              </Text>
+                     </children>
+                  </Pane>
+                        <Text fill="#757575" layoutX="30.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Připojených hráčů:">
                             <font>
-                                <Font size="35.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Text>
-                        <Separator layoutX="12.0" layoutY="54.0" prefHeight="4.0" prefWidth="1000.0"/>
-                        <Text layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Připojených hráčů:">
+                        <Text fx:id="numPlayingText" fill="#757575" layoutX="205.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="numPlayingText" layoutX="189.0" layoutY="88.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="0">
+                        <Text fill="#757575" layoutX="287.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kapacita místnosti:">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text layoutX="271.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Kapacita místnosti:">
+                        <Text fx:id="maxPlayingText" fill="#757575" layoutX="466.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="maxPlayingText" layoutX="450.0" layoutY="88.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="2">
+                        <Text fill="#757575" layoutX="596.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stav:">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text layoutX="580.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stav:">
+                        <Text fx:id="roomStatusText" fill="#757575" layoutX="646.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Čeká na hráče">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="roomStatusText" layoutX="630.0" layoutY="86.0" strokeType="OUTSIDE"
-                              strokeWidth="0.0" text="Čeká na hráče">
-                            <font>
-                                <Font size="18.0"/>
-                            </font>
-                        </Text>
-                        <Separator layoutX="10.0" layoutY="104.0" prefHeight="4.0" prefWidth="1000.0"/>
-                        <Pane layoutX="741.0" layoutY="510.0">
+                        <Separator layoutX="10.0" layoutY="104.0" prefHeight="4.0" prefWidth="1000.0" />
+                        <Pane layoutX="741.0" layoutY="510.0" prefHeight="220.0" prefWidth="269.0">
                             <children>
-                                <TextField fx:id="chatMsg" layoutY="188.0" prefHeight="26.0" prefWidth="201.0"/>
-                                <TextArea fx:id="chatWindow" prefHeight="188.0" prefWidth="269.0" wrapText="true"/>
-                                <Button fx:id="sendChatMsg" layoutX="201.0" layoutY="188.0" mnemonicParsing="false"
-                                        onAction="#sendNewMsg" text="Odeslat"/>
+                                <TextField fx:id="chatMsg" layoutY="183.0" prefHeight="32.0" prefWidth="185.0" promptText="Napiš zprávu" />
+                                <TextArea fx:id="chatWindow" prefHeight="183.0" prefWidth="269.0" wrapText="true" />
+                                <Button fx:id="sendChatMsg" layoutX="192.0" layoutY="183.0" mnemonicParsing="false" onAction="#sendNewMsg" text="ODESLAT" />
                             </children>
                         </Pane>
                         <VBox layoutX="10.0" layoutY="106.0" prefHeight="400.0" prefWidth="1000.0">
                             <children>
                                 <HBox fx:id="row1" prefHeight="200.0" prefWidth="1000.0">
                                     <children>
-                                        <VBox fx:id="vboxU0" prefHeight="200.0" prefWidth="500.0"/>
-                                        <VBox fx:id="vboxU1" prefHeight="200.0" prefWidth="500.0"/>
+                                        <VBox fx:id="vboxU0" prefHeight="200.0" prefWidth="500.0" />
+                                        <VBox fx:id="vboxU1" prefHeight="200.0" prefWidth="500.0" />
                                     </children>
                                 </HBox>
                                 <HBox fx:id="row2" prefHeight="200.0" prefWidth="1000.0">
                                     <children>
-                                        <VBox fx:id="vboxU2" prefHeight="200.0" prefWidth="500.0"/>
-                                        <VBox fx:id="vboxU3" prefHeight="200.0" prefWidth="500.0"/>
+                                        <VBox fx:id="vboxU2" prefHeight="200.0" prefWidth="500.0" />
+                                        <VBox fx:id="vboxU3" prefHeight="200.0" prefWidth="500.0" />
                                     </children>
                                 </HBox>
                             </children>
@@ -101,9 +107,12 @@
         </Pane>
     </children>
     <columnConstraints>
-        <ColumnConstraints/>
+        <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints/>
+        <RowConstraints />
     </rowConstraints>
+    <stylesheets>
+        <URL value="@/Pexeso/Public/Styles/material.css" />
+    </stylesheets>
 </GridPane>

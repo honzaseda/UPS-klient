@@ -171,6 +171,7 @@ public class GameController implements Initializable {
                     Stage serverLobbyStage = new Stage();
                     serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
                     serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
+                    serverLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;

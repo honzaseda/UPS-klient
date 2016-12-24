@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -25,6 +26,7 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
         loginStage.setTitle("Čupr Pexeso - Login");
         loginStage.setScene(new Scene(root, 350, 440));
+        loginStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
         loginStage.setResizable(false);
         loginStage.show();
         FXMLLOADER_LOGIN = fxmlLoader;

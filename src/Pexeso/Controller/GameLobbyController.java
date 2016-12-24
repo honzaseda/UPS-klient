@@ -91,6 +91,7 @@ public class GameLobbyController implements Initializable {
                 userName.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
                 Text userScore = new Text();
                 userScore.setText("Skóre: " + score);
+                userScore.setFill(Color.rgb(117, 117, 117, .99));
                 Text userReady = new Text();
                 userReady.setText("");
                 userReady.setFill(Color.rgb(33, 150, 243, .99));
@@ -239,6 +240,7 @@ public class GameLobbyController implements Initializable {
                     Stage serverLobbyStage = new Stage();
                     serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
                     serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
+                    serverLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
@@ -288,7 +290,8 @@ public class GameLobbyController implements Initializable {
                 unsetReady();
             }
         });
-        readyBtn.setBlendMode(BlendMode.EXCLUSION);
+        //readyBtn.setBlendMode(BlendMode.EXCLUSION);
+        readyBtn.setStyle("-fx-background-color: #616161;");
     }
 
     public void unsetReadyBtn() {
@@ -299,7 +302,7 @@ public class GameLobbyController implements Initializable {
                 setReady();
             }
         });
-        readyBtn.setBlendMode(BlendMode.SRC_OVER);
+        readyBtn.setStyle("-fx-background-color: #2196F3;");
     }
 
     public void setGameScene() throws IOException {
@@ -316,6 +319,7 @@ public class GameLobbyController implements Initializable {
                     Stage gameStage = new Stage();
                     gameStage.setScene(new Scene(gameRoot, 1024, 768));
                     gameStage.setTitle("Čupr Pexeso - Game");
+                    gameStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
                     gameStage.setResizable(false);
                     gameStage.show();
                     Main.FXMLLOADER_GAME = fxmlLoader;
