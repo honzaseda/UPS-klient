@@ -125,7 +125,7 @@ public class ClientListener implements Runnable {
                 }
             case "S_ROOM_USER_INFO":
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
-                gameLobbyController.addNewUserUi(Integer.parseInt(splittedMsg[1]), splittedMsg[2], "0");
+                gameLobbyController.addNewUserUi(Integer.parseInt(splittedMsg[1]), splittedMsg[2], Integer.parseInt(splittedMsg[3]), "0");
                 String connString2 = MsgTables.getType(MsgTypes.C_USER_UPDATE) + ":" + splittedMsg[1] + "#";
                 tcpInfo.sendMsg(connString2);
                 break;
@@ -133,7 +133,7 @@ public class ClientListener implements Runnable {
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
                 gameLobbyController.updateRoomUi(splittedMsg[1], splittedMsg[2]);
                 if (splittedMsg[3].equals("1")) {
-                    gameLobbyController.addNewUserUi(Integer.parseInt(splittedMsg[4]), splittedMsg[5], "0");
+                    gameLobbyController.addNewUserUi(Integer.parseInt(splittedMsg[4]), splittedMsg[5], 0, "0");
                     gameLobbyController.appendSrvrMsg("Hráč " + splittedMsg[5] + " se připojil.");
                 }
                 if (splittedMsg[3].equals("0")) {
@@ -167,7 +167,11 @@ public class ClientListener implements Runnable {
                 break;
             case "S_GAME_END":
                 gameController = Main.FXMLLOADER_GAME.getController();
-                gameController.gameEnd();
+                if (splittedMsg[1].equals("0")) {
+                    gameController.gameEnd(Integer.parseInt(splittedMsg[2]), Integer.parseInt(splittedMsg[3]), Integer.parseInt(splittedMsg[4]));
+                } else {
+                    gameController.gameEnd(Integer.parseInt(splittedMsg[2]), 0, Integer.parseInt(splittedMsg[3]));
+                }
                 break;
         }
     }

@@ -139,11 +139,13 @@ public class GameController implements Initializable {
     }
 
     public void updateOnTurn(final int id) {
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 turnIndicator.setText("Čekej na tah protihráče");
                 clearOnTurn();
+                //TODO furt nefunguje sidebar update
                 Node readyNode;
                 switch (id) {
                     case 0:
@@ -166,9 +168,9 @@ public class GameController implements Initializable {
                 if (readyNode instanceof Text) {
                     ((Text) readyNode).setText("Na tahu");
                 }
-                readyNode.setStyle("-fx-background-color: #EEEEEE;");
+                //readyNode.getParent().setStyle("-fx-background-color: #EEEEEE;");
 
-                if(Main.clientInfo.getRoomIndex() == id) {
+                if (Main.clientInfo.getRoomIndex() == id) {
                     turnIndicator.setText("Jsi na tahu!");
                     timeIndicator.setVisible(true);
                     timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
@@ -180,8 +182,7 @@ public class GameController implements Initializable {
                     timeline.getKeyFrames().add(
                             new KeyFrame(Duration.seconds(STARTTIME), new KeyValue(timeSeconds, 0)));
                     timeline.playFromStart();
-                }
-                else {
+                } else {
                     updateTurnWait();
                 }
             }
@@ -217,7 +218,7 @@ public class GameController implements Initializable {
                     if (readyNode instanceof Text) {
                         ((Text) readyNode).setText("");
                     }
-                    readyNode.setStyle("-fx-background-color: #FAFAFA;");
+                    //readyNode.getParent().setStyle("-fx-background-color: #FAFAFA;");
                 }
             }
         });
@@ -299,12 +300,16 @@ public class GameController implements Initializable {
     public void flipBack(int firstRow, int firstCol, int secRow, int secCol) {
         deck[firstRow][firstCol].setImage(cardBackImg);
         deck[secRow][secCol].setImage(cardBackImg);
+        tcpConn.turnAck(thisRoomId);
     }
 
     public void playerScored(int id, int score, int firstRow, int firstCol, int secRow, int secCol) {
         updateScore(id, score);
         removeCard(firstRow, firstCol);
         removeCard(secRow, secCol);
+        if(id == Main.clientInfo.getRoomIndex()){
+            updateOnTurn(id);
+        }
     }
 
     public void updateScore(int id, int score) {
@@ -335,7 +340,7 @@ public class GameController implements Initializable {
         deck[row][col].setVisible(false);
     }
 
-    public void gameEnd() {
+    public void gameEnd(final int firstId, final int secondId, final int score) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -344,10 +349,19 @@ public class GameController implements Initializable {
                 alert.setTitle("Konec hry");
                 alert.initStyle(StageStyle.UTILITY);
                 alert.setHeaderText(null);
-                alert.setContentText("I have a great message for you!");
-                ButtonType buttonConf = new ButtonType("Zpět do lobby");
+                alert.setGraphic(null);
+                if (secondId != 0) {
+                    alert.setContentText("Konec hry! Remíza mezi hráči " + getUserName(firstId) + " a " + getUserName(secondId) + " s konečným skóre " + score + ".");
+                } else {
+                    alert.setContentText("Konec hry! Vítězí hráč " + getUserName(firstId) + " s konečným skóre " + score + ".");
+                }
+                ButtonType buttonConf = new ButtonType("ZPĚT DO LOBBY");
 
                 alert.getButtonTypes().setAll(buttonConf);
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(
+                        getClass().getResource("/Pexeso/Public/Styles/material.css").toExternalForm());
+                dialogPane.getStyleClass().add("game-end");
 
                 alert.showAndWait();
                 if (alert.getResult() == buttonConf) {
@@ -357,6 +371,31 @@ public class GameController implements Initializable {
                 }
             }
         });
+    }
+
+    public String getUserName(int id) {
+        Node readyNode;
+        switch (id) {
+            case 0:
+                readyNode = vboxU0.getChildren().get(0);
+                break;
+            case 1:
+                readyNode = vboxU1.getChildren().get(0);
+                break;
+            /*
+            case 2:
+                readyNode = vboxU2.getChildren().get(0);
+                break;
+            case 3:
+                readyNode = vboxU3.getChildren().get(0);
+                break;
+                */
+            default:
+                readyNode = null;
+        }
+        if (readyNode instanceof Text) {
+            return ((Text) readyNode).getText();
+        } else return "";
     }
 
     public void sendNewMsg() {

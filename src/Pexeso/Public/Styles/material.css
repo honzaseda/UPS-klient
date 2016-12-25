@@ -142,3 +142,14 @@
 .tool-bar{
     -fx-background-color: #EEEEEE;
 }
+
+.game-end .button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2;
+    -fx-padding: 8;
+    -fx-text-fill: #2196F3;
+}
+
+.game-end .button:pressed {
+    -fx-background-color: #BDBDBD;
+}

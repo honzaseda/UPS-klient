@@ -79,7 +79,7 @@ public class GameLobbyController implements Initializable {
     }
 
     @FXML
-    public void addNewUserUi(final int userIndex, final String name, final String score) {
+    public void addNewUserUi(final int userIndex, final String name, final int ready,final String score) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -93,7 +93,12 @@ public class GameLobbyController implements Initializable {
                 userScore.setText("Skóre: " + score);
                 userScore.setFill(Color.rgb(117, 117, 117, .99));
                 Text userReady = new Text();
-                userReady.setText("");
+                if(ready == 1){
+                    userReady.setText("Připraven!");
+                }
+                else {
+                    userReady.setText("");
+                }
                 userReady.setFill(Color.rgb(33, 150, 243, .99));
                 userReady.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
 
@@ -290,7 +295,6 @@ public class GameLobbyController implements Initializable {
                 unsetReady();
             }
         });
-        //readyBtn.setBlendMode(BlendMode.EXCLUSION);
         readyBtn.setStyle("-fx-background-color: #616161;");
     }
 
@@ -344,6 +348,7 @@ public class GameLobbyController implements Initializable {
                             }
                         }
                     });
+                    tcpConn.turnAck(thisRoomId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

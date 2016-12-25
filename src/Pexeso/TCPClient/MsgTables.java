@@ -27,6 +27,8 @@ public class MsgTables {
                 return "C_CHAT";
             case C_TURN_CARD:
                 return "C_TURN_CARD";
+            case C_TURN_ACK:
+                return "C_TURN_ACK";
             default:
                 return "";
         }

@@ -13,5 +13,6 @@ public enum MsgTypes {
     C_USER_UPDATE,
     C_CHAT,
     C_TURN_CARD,
+    C_TURN_ACK,
     NO_CODE
 }

@@ -97,6 +97,11 @@ public class TCP {
         sendMsg(connString);
     }
 
+    public void turnAck(String roomId) {
+        String connString = MsgTables.getType(MsgTypes.C_TURN_ACK) + ":" + roomId + "#";
+        sendMsg(connString);
+    }
+
     public void sendMsg(String data) {
         try {
             if (socket != null) {
