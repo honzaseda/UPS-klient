@@ -138,19 +138,89 @@ public class GameController implements Initializable {
         });
     }
 
-    public void updateOnTurn() {
-        turnIndicator.setText("Jsi na tahu!");
-        //TODO: update right side player info
-        timeIndicator.setVisible(true);
-        timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
-        if (timeline != null) {
-            timeline.stop();
-        }
-        timeSeconds.set((STARTTIME) * 100);
-        timeline = new Timeline();
-        timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(STARTTIME), new KeyValue(timeSeconds, 0)));
-        timeline.playFromStart();
+    public void updateOnTurn(final int id) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                turnIndicator.setText("Čekej na tah protihráče");
+                clearOnTurn();
+                Node readyNode;
+                switch (id) {
+                    case 0:
+                        readyNode = vboxU0.getChildren().get(2);
+                        break;
+                    case 1:
+                        readyNode = vboxU1.getChildren().get(2);
+                        break;
+                    /*
+                    case 2:
+                        readyNode = vboxU2.getChildren().get(2);
+                        break;
+                    case 3:
+                        readyNode = vboxU3.getChildren().get(2);
+                        break;
+                        */
+                    default:
+                        readyNode = null;
+                }
+                if (readyNode instanceof Text) {
+                    ((Text) readyNode).setText("Na tahu");
+                }
+                readyNode.setStyle("-fx-background-color: #EEEEEE;");
+
+                if(Main.clientInfo.getRoomIndex() == id) {
+                    turnIndicator.setText("Jsi na tahu!");
+                    timeIndicator.setVisible(true);
+                    timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
+                    if (timeline != null) {
+                        timeline.stop();
+                    }
+                    timeSeconds.set((STARTTIME) * 100);
+                    timeline = new Timeline();
+                    timeline.getKeyFrames().add(
+                            new KeyFrame(Duration.seconds(STARTTIME), new KeyValue(timeSeconds, 0)));
+                    timeline.playFromStart();
+                }
+                else {
+                    updateTurnWait();
+                }
+            }
+
+
+        });
+    }
+
+    public void clearOnTurn() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 2; i++) {
+                    Node readyNode;
+                    switch (i) {
+                        case 0:
+                            readyNode = vboxU0.getChildren().get(2);
+                            break;
+                        case 1:
+                            readyNode = vboxU1.getChildren().get(2);
+                            break;
+                /*
+                case 2:
+                    readyNode = vboxU2.getChildren().get(2);
+                    break;
+                case 3:
+                    readyNode = vboxU3.getChildren().get(2);
+                    break;
+                    */
+                        default:
+                            readyNode = null;
+                    }
+                    if (readyNode instanceof Text) {
+                        ((Text) readyNode).setText("");
+                    }
+                    readyNode.setStyle("-fx-background-color: #FAFAFA;");
+                }
+            }
+        });
     }
 
     public void updateTurnWait() {

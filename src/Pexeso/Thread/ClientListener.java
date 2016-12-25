@@ -105,6 +105,7 @@ public class ClientListener implements Runnable {
                 break;
             case "S_ROOM_READY":
                 try {
+                    Main.clientInfo.setRoomIndex(Integer.parseInt(splittedMsg[2]));
                     gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
                     gameLobbyController.appendSrvrMsg("Všichni hráči připraveni, hra začíná!");
                     gameLobbyController.setGameScene();
@@ -146,7 +147,7 @@ public class ClientListener implements Runnable {
                 break;
             case "S_ON_TURN":
                 gameController = Main.FXMLLOADER_GAME.getController();
-                gameController.updateOnTurn();
+                gameController.updateOnTurn(Integer.parseInt(splittedMsg[1]));
                 break;
             case "S_NON_TURN":
                 gameController = Main.FXMLLOADER_GAME.getController();

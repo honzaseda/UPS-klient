@@ -6,6 +6,7 @@ package Pexeso.TCPClient;
 public class ClientInfo {
     private String name;
     private int activeRoom;
+    private int roomIndex;
 
     public ClientInfo(String name, int activeRoom) {
         this.name = name;
@@ -26,5 +27,13 @@ public class ClientInfo {
 
     public int getActiveRoom() {
         return this.activeRoom;
+    }
+
+    public void setRoomIndex(int id){
+        this.roomIndex = id;
+    }
+
+    public int getRoomIndex(){
+        return this.roomIndex;
     }
 }

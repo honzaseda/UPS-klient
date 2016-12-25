@@ -131,7 +131,13 @@
     -fx-padding: 5px;
 }
 
+.usr-on-turn {
+    -fx-background-color: #EEEEEE;
+}
 
+.usr-waiting {
+    -fx-background-color: #FAFAFA;
+}
 
 .tool-bar{
     -fx-background-color: #EEEEEE;

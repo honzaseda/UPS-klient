@@ -112,9 +112,13 @@ public class TCP {
         try {
             if (socket != null) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String msg;
-                if ((msg = br.readLine()) != null) {
-                    return msg;
+                String buffer;
+                String msg = "";
+                if ((buffer = br.readLine()) != null) {
+                    msg += buffer;
+                    if (msg.contains("#")) {
+                        return msg;
+                    }
                 } else {
                     br.close();
                     return null;
@@ -124,8 +128,10 @@ public class TCP {
                 return null;
             }
         } catch (IOException e) {
+            //e.printStackTrace();
             return null;
         }
+        return null;
     }
 
     public void getConnectedUsers() {
