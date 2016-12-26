@@ -125,7 +125,7 @@ public class ClientListener implements Runnable {
                 }
             case "S_TIME_NOTIFY":
                     gameController = Main.FXMLLOADER_GAME.getController();
-                    gameController.appendSrvrMsg(gameController.getUserName(Integer.parseInt(splittedMsg[1])) + ", jsi na tahu. Zbývá ti 10 vteřin.w");
+                    gameController.appendSrvrMsg(gameController.getUserName(Integer.parseInt(splittedMsg[1])) + ", jsi na tahu. Zbývá ti 10 vteřin.");
                     break;
             case "S_ROOM_USER_INFO":
                 gameLobbyController = Main.FXMLLOADER_GAMELOBBY.getController();
