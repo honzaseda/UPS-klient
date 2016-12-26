@@ -249,6 +249,7 @@ public class GameLobbyController implements Initializable {
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
+                    Main.parentWindow = serverLobbyStage;
 
                     ServerLobbyController s = Main.FXMLLOADER_SERVERLOBBY.getController();
                     s.refreshTable();
@@ -327,6 +328,7 @@ public class GameLobbyController implements Initializable {
                     gameStage.setResizable(false);
                     gameStage.show();
                     Main.FXMLLOADER_GAME = fxmlLoader;
+                    Main.parentWindow = gameStage;
 
                     final GameController g = Main.FXMLLOADER_GAME.getController();
                     g.setThisRoomId(thisRoomId);

@@ -246,6 +246,7 @@ public class GameController implements Initializable {
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
+                    Main.parentWindow = serverLobbyStage;
 
                     ServerLobbyController s = Main.FXMLLOADER_SERVERLOBBY.getController();
                     s.refreshTable();
@@ -430,7 +431,7 @@ public class GameController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                chatWindow.appendText("-- Server -- " + msg + newLine);
+                chatWindow.appendText("[Server] " + msg + newLine);
             }
         });
     }
