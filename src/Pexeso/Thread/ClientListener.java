@@ -62,6 +62,9 @@ public class ClientListener implements Runnable {
                 loginController.setLobbyUi();
                 Main.clientInfo = new ClientInfo(splittedMsg[1], -1);
                 break;
+            case "S_NICK_LEN":
+                loginController.setStatusText("Délka nicku musí být 3 až 32 znaků", 5000);
+                break;
             case "S_NAME_EXISTS":
                 loginController.setStatusText("Uživatel se jménem " + splittedMsg[1] + " již existuje", 3000);
                 break;

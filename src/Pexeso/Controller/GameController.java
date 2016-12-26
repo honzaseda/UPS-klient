@@ -106,7 +106,7 @@ public class GameController implements Initializable {
             public void run() {
                 Text userName = new Text();
                 userName.setText(name.toUpperCase());
-                userName.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+                userName.setFont(Font.font("Verdana", FontWeight.BOLD, 26));
                 Text userScore = new Text();
                 userScore.setText("Skóre: " + score);
                 Text onTurn = new Text();
@@ -129,6 +129,7 @@ public class GameController implements Initializable {
                         vbox = vboxU3;
                         break;
                 }
+                vbox.setMaxWidth(269);
                 vbox.getChildren().add(0, userName);
                 vbox.getChildren().add(1, userScore);
                 vbox.getChildren().add(2, onTurn);
@@ -412,7 +413,7 @@ public class GameController implements Initializable {
         try {
             GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
             g.leaveLobby();
-            setServerLobbyScene();
+            Main.parentWindow.close();
         } catch (IOException e) {
 
         }

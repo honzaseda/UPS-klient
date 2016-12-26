@@ -32,11 +32,11 @@
                                 <Label text="Nebyly nalezeny žádné herní místnosti" />
                             </placeholder>
                             <columns>
-                                <TableColumn fx:id="tableRoomId" prefWidth="49.0" resizable="false" text="#" />
-                                <TableColumn fx:id="tableRoomName" prefWidth="389.0" resizable="false" text="Místnost" />
-                                <TableColumn fx:id="tableConnPlayers" minWidth="0.0" prefWidth="201.0" resizable="false" text="Počet hráčů" />
-                                <TableColumn fx:id="tableMaxPlayers" minWidth="0.0" prefWidth="155.0" resizable="false" text="Kapacita" />
-                                <TableColumn fx:id="tableRoomStatus" minWidth="0.0" prefWidth="207.0" resizable="false" text="Stav" />
+                                <TableColumn fx:id="tableRoomId" maxWidth="49.0" minWidth="49.0" prefWidth="49.0" resizable="false" text="#" />
+                                <TableColumn fx:id="tableRoomName" maxWidth="389.0" minWidth="389.0" prefWidth="389.0" resizable="false" text="Místnost" />
+                                <TableColumn fx:id="tableConnPlayers" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" resizable="false" text="Počet hráčů" />
+                                <TableColumn fx:id="tableMaxPlayers" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" resizable="false" text="Kapacita" />
+                                <TableColumn fx:id="tableRoomStatus" maxWidth="243.0" minWidth="243.0" prefWidth="243.0" resizable="false" text="Stav" />
                             </columns>
                         </TableView>
                         <Button fx:id="joinRoom" layoutX="656.0" layoutY="568.0" mnemonicParsing="false" styleClass="button-raised, btn-medium" text="VSTOUPIT DO MÍSTNOSTI" />

@@ -117,6 +117,7 @@ public class GameLobbyController implements Initializable {
                         vbox = vboxU3;
                         break;
                 }
+                vbox.setMaxWidth(500);
                 vbox.getChildren().add(0, userIcon);
                 vbox.getChildren().add(1, userName);
                 vbox.getChildren().add(2, userScore);
