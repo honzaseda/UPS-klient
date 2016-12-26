@@ -1,5 +1,6 @@
 package Pexeso;
 
+import Pexeso.Controller.LoginController;
 import Pexeso.TCPClient.ClientInfo;
 import Pexeso.TCPClient.TCP;
 import javafx.application.Application;
@@ -30,6 +31,8 @@ public class Main extends Application {
         loginStage.setResizable(false);
         loginStage.show();
         FXMLLOADER_LOGIN = fxmlLoader;
+        LoginController l = fxmlLoader.getController();
+        l.focusLabels();
     }
 
 

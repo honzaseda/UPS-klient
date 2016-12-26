@@ -1,5 +1,6 @@
 .root{
     -fx-background-color: #FAFAFA;
+    -fx-accent: #1976D2;
 }
 
 .button-raised{
@@ -50,7 +51,7 @@
 }
 
 .text-field-label {
-    -fx-text-fill: #BDBDBD;
+    -fx-text-fill: #9e9e9e;
 }
 
 .table-view{

@@ -4,6 +4,8 @@ import Pexeso.Main;
 import Pexeso.TCPClient.TCP;
 import Pexeso.Thread.ClientListener;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -36,6 +39,8 @@ public class LoginController {
     @FXML
     public TextField nickField;
     @FXML
+    public Text nickLabel, ipLabel, portLabel;
+    @FXML
     public Button loginBtn;
     @FXML
     public VBox statusTextVBox;
@@ -45,6 +50,53 @@ public class LoginController {
     public TCP tcp;
     private ClientListener clientListener;
 
+    public void focusLabels(){
+        nickField.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+            {
+                if (newPropertyValue)
+                {
+                    nickLabel.setFill(Color.valueOf("#1976D2"));
+                }
+                else
+                {
+                    nickLabel.setFill(Color.valueOf("#9e9e9e"));
+                }
+            }
+        });
+        ipField.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+            {
+                if (newPropertyValue)
+                {
+                    ipLabel.setFill(Color.valueOf("#1976D2"));
+                }
+                else
+                {
+                    ipLabel.setFill(Color.valueOf("#9e9e9e"));
+                }
+            }
+        });
+        portField.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+            {
+                if (newPropertyValue)
+                {
+                    portLabel.setFill(Color.valueOf("#1976D2"));
+                }
+                else
+                {
+                    portLabel.setFill(Color.valueOf("#9e9e9e"));
+                }
+            }
+        });
+    }
 
     public void attemptLogin() {
         statusText.setText("");

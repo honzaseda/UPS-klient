@@ -17,13 +17,14 @@
     <children>
         <Pane prefHeight="440.0" prefWidth="350.0">
             <children>
+                <Text fx:id="nickLabel" fill="#9e9e9e" layoutX="142.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field-label" text="Nickname" />
                 <TextField fx:id="nickField" layoutX="89.0" layoutY="337.0" />
                 <TextField fx:id="ipField" layoutX="63.0" layoutY="289.0" prefHeight="26.0" prefWidth="150.0" text="0.0.0.0" />
                 <TextField fx:id="portField" layoutX="217.0" layoutY="289.0" prefHeight="25.0" prefWidth="70.0" text="44444" />
                 <Button fx:id="loginBtn" layoutX="128.0" layoutY="381.0" mnemonicParsing="false" onAction="#attemptLogin" styleClass="button-raised, btn-small" text="PŘIHLÁSIT" />
-                <Text id="text-field-label" fill="#9e9e9e" layoutX="63.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field-label" text="Server IP" />
-                <Text fill="#9e9e9e" layoutX="217.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field-label" text="Port" />
-                <Text fill="#9e9e9e" layoutX="142.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field-label" text="Nickname" />
+                <Text fx:id="ipLabel" id="text-field-label" fill="#9e9e9e" layoutX="63.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field-label" text="Server IP" />
+                <Text fx:id="portLabel" fill="#9e9e9e" layoutX="217.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field-label" text="Port" />
+
                 <ImageView fitHeight="230.3" fitWidth="147.6" layoutX="104.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@/Pexeso/Public/Img/login-logo.png" />
