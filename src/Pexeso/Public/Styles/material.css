@@ -153,3 +153,8 @@
 .game-end .button:pressed {
     -fx-background-color: #BDBDBD;
 }
+
+.game-end > *.label.content{
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}

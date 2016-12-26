@@ -353,9 +353,9 @@ public class GameController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setGraphic(null);
                 if (secondId != 0) {
-                    alert.setContentText("Konec hry! Remíza mezi hráči " + getUserName(firstId) + " a " + getUserName(secondId) + " s konečným skóre " + score + ".");
+                    alert.setContentText("Konec hry! Remíza mezi hráči\n" + getUserName(firstId) + "\n" + getUserName(secondId) + "\ns konečným skóre " + score + ".");
                 } else {
-                    alert.setContentText("Konec hry! Vítězí hráč " + getUserName(firstId) + " s konečným skóre " + score + ".");
+                    alert.setContentText("Konec hry! Vítězí hráč\n" + getUserName(firstId) + "\ns konečným skóre " + score + ".");
                 }
                 ButtonType buttonConf = new ButtonType("ZPĚT DO LOBBY");
 
