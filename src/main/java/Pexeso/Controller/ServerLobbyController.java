@@ -166,12 +166,12 @@ public class ServerLobbyController implements Initializable {
                     Stage serverLobbyStage = (Stage) serverLobbyPane.getScene().getWindow();
                     serverLobbyStage.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/GameLobby.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/GameLobby.fxml"));
                     Parent gameLobbyRoot = fxmlLoader.load();
                     Stage gameLobbyStage = new Stage();
                     gameLobbyStage.setScene(new Scene(gameLobbyRoot, 1024, 768));
                     gameLobbyStage.setTitle("Čupr Pexeso - Game Room Lobby - Herní místnost " + roomId);
-                    gameLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+                    gameLobbyStage.getIcons().add(new Image("Public/Img/icon.png"));
                     gameLobbyStage.setResizable(false);
                     gameLobbyStage.show();
                     Main.FXMLLOADER_GAMELOBBY = fxmlLoader;

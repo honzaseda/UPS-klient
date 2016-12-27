@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -50,7 +51,7 @@ public class GameController implements Initializable {
     public Text turnIndicator;
     @FXML
     public ProgressBar timeIndicator;
-    private static final Image cardBackImg = new Image("/Pexeso/Public/Img/card-back.png");
+    private static final Image cardBackImg = new Image("/Public/Img/card-back.png");
 
     //Chatting UI
     @FXML
@@ -95,6 +96,8 @@ public class GameController implements Initializable {
         thisRoomId = id;
     }
 
+    public String getThisRoomId() { return thisRoomId; }
+
     public void initChatWindow(String oldMsg) {
         chatWindow.setText(oldMsg);
     }
@@ -107,6 +110,8 @@ public class GameController implements Initializable {
                 Text userName = new Text();
                 userName.setText(name.toUpperCase());
                 userName.setFont(Font.font("Verdana", FontWeight.BOLD, 26));
+                userName.setWrappingWidth(269);
+                userName.setTextAlignment(TextAlignment.RIGHT);
                 Text userScore = new Text();
                 userScore.setText("Skóre: " + score);
                 Text onTurn = new Text();
@@ -145,8 +150,34 @@ public class GameController implements Initializable {
             @Override
             public void run() {
                 turnIndicator.setText("Čekej na tah protihráče");
+                if (Main.clientInfo.getRoomIndex() == id) {
+                    turnIndicator.setText("Jsi na tahu!");
+                    timeIndicator.setVisible(true);
+                    timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
+                    if (timeline != null) {
+                        timeline.stop();
+                    }
+                    timeSeconds.set((STARTTIME) * 100);
+                    timeline = new Timeline();
+                    timeline.getKeyFrames().add(
+                            new KeyFrame(Duration.seconds(STARTTIME), new KeyValue(timeSeconds, 0)));
+                    timeline.playFromStart();
+                } else {
+                    updateTurnWait();
+                }
+            }
+
+
+        });
+    }
+
+    public void updateSideBar(final int id){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                turnIndicator.setText("Čekej na tah protihráče");
                 clearOnTurn();
-                //TODO furt nefunguje sidebar update
+                //TODO furt furt nefunguje sidebar update
                 Node readyNode;
                 switch (id) {
                     case 0:
@@ -167,28 +198,12 @@ public class GameController implements Initializable {
                         readyNode = null;
                 }
                 if (readyNode instanceof Text) {
-                    ((Text) readyNode).setText("Na tahu");
-                }
-                //readyNode.getParent().setStyle("-fx-background-color: #EEEEEE;");
-
-                if (Main.clientInfo.getRoomIndex() == id) {
-                    turnIndicator.setText("Jsi na tahu!");
-                    timeIndicator.setVisible(true);
-                    timeIndicator.progressProperty().bind(timeSeconds.divide(STARTTIME * 100.0).subtract(1).multiply(-1));
-                    if (timeline != null) {
-                        timeline.stop();
+                    try {
+                        ((Text) readyNode).setText("Na tahu");
                     }
-                    timeSeconds.set((STARTTIME) * 100);
-                    timeline = new Timeline();
-                    timeline.getKeyFrames().add(
-                            new KeyFrame(Duration.seconds(STARTTIME), new KeyValue(timeSeconds, 0)));
-                    timeline.playFromStart();
-                } else {
-                    updateTurnWait();
+                    catch(Exception e){}
                 }
             }
-
-
         });
     }
 
@@ -238,12 +253,12 @@ public class GameController implements Initializable {
                     Stage gameStage = (Stage) gamePane.getScene().getWindow();
                     gameStage.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/ServerLobby.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/ServerLobby.fxml"));
                     Parent serverLobbyRoot = fxmlLoader.load();
                     Stage serverLobbyStage = new Stage();
                     serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
                     serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
-                    serverLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+                    serverLobbyStage.getIcons().add(new Image("Public/Img/icon.png"));
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
@@ -295,7 +310,7 @@ public class GameController implements Initializable {
     }
 
     public void flipCard(int row, int col, int imgId) {
-        Image flippedCard = new Image("/Pexeso/Public/Img/cards/" + imgId + ".png");
+        Image flippedCard = new Image("/Public/Img/cards/" + imgId + ".png");
         deck[row][col].setImage(flippedCard);
     }
 
@@ -362,7 +377,7 @@ public class GameController implements Initializable {
                 alert.getButtonTypes().setAll(buttonConf);
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.getStylesheets().add(
-                        getClass().getResource("/Pexeso/Public/Styles/material.css").toExternalForm());
+                        getClass().getResource("/Public/Styles/material.css").toExternalForm());
                 dialogPane.getStyleClass().add("game-end");
 
                 alert.showAndWait();

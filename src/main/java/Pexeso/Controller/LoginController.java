@@ -124,12 +124,12 @@ public class LoginController {
                     Stage loginStage = (Stage) loginPane.getScene().getWindow();
                     loginStage.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/ServerLobby.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/ServerLobby.fxml"));
                     Parent serverLobbyRoot = fxmlLoader.load();
                     final Stage serverLobbyStage = new Stage();
                     serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
                     serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
-                    serverLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+                    serverLobbyStage.getIcons().add(new Image("Public/Img/icon.png"));
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.parentWindow = serverLobbyStage;
@@ -161,12 +161,12 @@ public class LoginController {
                 try {
                     Main.parentWindow.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/Login.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/Login.fxml"));
                     Parent loginRoot = fxmlLoader.load();
                     final Stage loginStage = new Stage();
                     loginStage.setTitle("Čupr Pexeso - Login");
                     loginStage.setScene(new Scene(loginRoot, 350, 440));
-                    loginStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+                    loginStage.getIcons().add(new Image("Public/Img/icon.png"));
                     loginStage.setResizable(false);
                     loginStage.show();
                     Main.FXMLLOADER_LOGIN = fxmlLoader;

@@ -23,11 +23,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage loginStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Stage/Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Stage/Login.fxml"));
         Parent root = fxmlLoader.load();
         loginStage.setTitle("Čupr Pexeso - Login");
         loginStage.setScene(new Scene(root, 350, 440));
-        loginStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+        loginStage.getIcons().add(new Image("/Public/Img/icon.png"));
         loginStage.setResizable(false);
         loginStage.show();
         FXMLLOADER_LOGIN = fxmlLoader;

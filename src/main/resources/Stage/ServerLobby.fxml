@@ -58,6 +58,6 @@
         <RowConstraints />
     </rowConstraints>
     <stylesheets>
-        <URL value="@/Pexeso/Public/Styles/material.css" />
+        <URL value="@/Public/Styles/material.css" />
     </stylesheets>
 </GridPane>

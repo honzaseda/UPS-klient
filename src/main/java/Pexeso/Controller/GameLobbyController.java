@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -27,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -83,12 +83,14 @@ public class GameLobbyController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                final Image cardBackImg = new Image("/Pexeso/Public/Img/user-icon.png");
+                final Image cardBackImg = new Image("/Public/Img/user-icon.png");
                 ImageView userIcon = new ImageView();
                 userIcon.setImage(cardBackImg);
                 Text userName = new Text();
                 userName.setText(name.toUpperCase());
                 userName.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+                userName.setWrappingWidth(500);
+                userName.setTextAlignment(TextAlignment.CENTER);
                 Text userScore = new Text();
                 userScore.setText("Skóre: " + score);
                 userScore.setFill(Color.rgb(117, 117, 117, .99));
@@ -241,12 +243,12 @@ public class GameLobbyController implements Initializable {
                     Stage gameLobbyStage = (Stage) gameLobbyPane.getScene().getWindow();
                     gameLobbyStage.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/ServerLobby.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/ServerLobby.fxml"));
                     Parent serverLobbyRoot = fxmlLoader.load();
                     Stage serverLobbyStage = new Stage();
                     serverLobbyStage.setScene(new Scene(serverLobbyRoot, 1024, 768));
                     serverLobbyStage.setTitle("Čupr Pexeso - Server Lobby");
-                    serverLobbyStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+                    serverLobbyStage.getIcons().add(new Image("Public/Img/icon.png"));
                     serverLobbyStage.setResizable(false);
                     serverLobbyStage.show();
                     Main.FXMLLOADER_SERVERLOBBY = fxmlLoader;
@@ -320,12 +322,12 @@ public class GameLobbyController implements Initializable {
                     Stage gameLobbyStage = (Stage) gameLobbyPane.getScene().getWindow();
                     gameLobbyStage.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Pexeso/Stage/Game.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/Game.fxml"));
                     Parent gameRoot = fxmlLoader.load();
                     Stage gameStage = new Stage();
                     gameStage.setScene(new Scene(gameRoot, 1024, 768));
                     gameStage.setTitle("Čupr Pexeso - Game");
-                    gameStage.getIcons().add(new Image("Pexeso/Public/Img/icon.png"));
+                    gameStage.getIcons().add(new Image("Public/Img/icon.png"));
                     gameStage.setResizable(false);
                     gameStage.show();
                     Main.FXMLLOADER_GAME = fxmlLoader;
