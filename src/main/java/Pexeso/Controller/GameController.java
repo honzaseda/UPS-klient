@@ -66,7 +66,7 @@ public class GameController implements Initializable {
     private VBox vboxU0, vboxU1, vboxU2, vboxU3;
 
     public TCP tcpConn;
-    private String thisRoomId;
+    public String thisRoomId;
     private String newLine = "\n\r";
 
     private int deckRows = 4, deckCols = 5;
@@ -115,9 +115,9 @@ public class GameController implements Initializable {
                 Text userScore = new Text();
                 userScore.setText("Skóre: " + score);
                 Text onTurn = new Text();
-                onTurn.setText(isOnTurn);
-                onTurn.setFill(Color.rgb(33, 150, 243, .99));
-                onTurn.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
+//                onTurn.setText(isOnTurn);
+//                onTurn.setFill(Color.rgb(33, 150, 243, .99));
+//                onTurn.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
 
                 VBox vbox = new VBox();
                 switch (userIndex) {
@@ -176,7 +176,7 @@ public class GameController implements Initializable {
             @Override
             public void run() {
                 turnIndicator.setText("Čekej na tah protihráče");
-                clearOnTurn();
+                //clearOnTurn();
                 //TODO furt furt nefunguje sidebar update
                 Node readyNode;
                 switch (id) {

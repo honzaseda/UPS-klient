@@ -175,6 +175,7 @@ public class ServerLobbyController implements Initializable {
                     gameLobbyStage.setResizable(false);
                     gameLobbyStage.show();
                     Main.FXMLLOADER_GAMELOBBY = fxmlLoader;
+                    Main.parentWindow = gameLobbyStage;
 
                     GameLobbyController g = Main.FXMLLOADER_GAMELOBBY.getController();
                     GameLobbyController.thisRoomId = roomId;
@@ -184,6 +185,7 @@ public class ServerLobbyController implements Initializable {
                     gameLobbyStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
                         public void handle(WindowEvent event) {
+                            Main.tcpi.leaveRoom(Integer.parseInt(GameLobbyController.thisRoomId));
                             Main.tcpi.disconnect();
                             System.exit(0);
 

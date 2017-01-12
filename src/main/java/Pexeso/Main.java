@@ -23,7 +23,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage loginStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Stage/Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Stage/Login.fxml"));
         Parent root = fxmlLoader.load();
         loginStage.setTitle("Čupr Pexeso - Login");
         loginStage.setScene(new Scene(root, 350, 440));
@@ -32,6 +32,7 @@ public class Main extends Application {
         loginStage.show();
         FXMLLOADER_LOGIN = fxmlLoader;
         LoginController l = fxmlLoader.getController();
+        Main.parentWindow = loginStage;
         l.focusLabels();
     }
 

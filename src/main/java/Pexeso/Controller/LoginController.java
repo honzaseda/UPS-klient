@@ -109,7 +109,8 @@ public class LoginController {
                 Thread thread = new Thread(clientListener);
                 thread.start();
                 sleep(100);
-                tcp.loginUser(nickField.getText());
+                String correctedLogin = nickField.getText().replaceAll("[#:]", "?");
+                tcp.loginUser(correctedLogin);
             }
         } catch (Exception e) {
             setStatusText("Neplatný server/port", 3000);
@@ -174,6 +175,7 @@ public class LoginController {
 
                     LoginController l = Main.FXMLLOADER_LOGIN.getController();
                     l.setStatusText("Spojení se serverem bylo přerušeno", 8000);
+                    l.focusLabels();
 
                     loginStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                         @Override
