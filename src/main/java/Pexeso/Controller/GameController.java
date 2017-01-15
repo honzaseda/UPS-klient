@@ -362,6 +362,7 @@ public class GameController implements Initializable {
             @Override
             public void run() {
                 appendSrvrMsg("Konec hry!");
+                turnIndicator.setText("Konec hry!");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Konec hry");
                 alert.initStyle(StageStyle.UTILITY);
